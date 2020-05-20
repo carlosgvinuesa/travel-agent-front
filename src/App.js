@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import Routes from "./Routes";
+import Navbar from "./Components/Navbar/navbar";
+import AppContext from "./AppContext";
+import { withRouter } from "react-router";
+import { logout } from "./services/authServices";
+// import { denormalizeData, normalizeData } from "./utils/dataUtils";
+// import { getProperties } from "./services/propertyServices";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    user: JSON.parse(localStorage.getItem("user")) || {},
+  };
+
+  setUser = (user) => {
+    this.setState({ user });
+  };
+
+  logout = () => {
+    const { history } = this.props;
+    logout().then(() => {
+      localStorage.removeItem("user");
+      this.setState({ user: {} });
+      history.push("/login");
+    });
+  };
+
+  render() {
+    const { state, setUser, logout } = this;
+    return (
+      <AppContext.Provider
+        value={{
+          state,
+          setUser,
+          logout,
+        }}
+      >
+        <div className="App">
+          <Navbar user={state.user} logout={logout} />
+          <Routes />
+        </div>
+      </AppContext.Provider>
+    );
+  }
 }
 
-export default App;
+const AppWithRouter = withRouter(App);
+
+export default AppWithRouter;
+
+
