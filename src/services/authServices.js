@@ -1,28 +1,28 @@
 import axios from "axios";
-// import { base_url } from "./variables";
+import { base_url } from "./variables";
 
 axios.defaults.withCredentials = true;
 
-export const login = (credential) => {
-  return axios.post(`http://localhost:3000/api/users/login`, credential);
-};
-
-export const signup = (credential) => {
-  return axios.post(`http://localhost:3000/api/users/signup`, credential);
-};
-
-export const logout = () => {
-  return axios.post(`http://localhost:3000/api/users/logout`);
-};
-
-// export const login = (credential) => {
-//   return axios.post(`${base_url}/users/login`, credential);
+// export const login = (credentials) => {
+//   return axios.post(`http://localhost:3000/api/login`, credentials);
 // };
 
-// export const signup = (credential) => {
-//   return axios.post(`${base_url}/users/signup`, credential);
+// export const signup = (credentials) => {
+//   return axios.post(`http://localhost:3000/api/signup`, credentials);
 // };
 
 // export const logout = () => {
-//   return axios.post(`${base_url}/users/logout`);
+//   return axios.post(`http://localhost:3000/api/logout`);
 // };
+
+export const login = (credentials) => {
+  return axios.post(`${base_url}/login`, credentials);
+};
+
+export const signup = (credentials) => {
+  return axios.post(`${base_url}/signup`, credentials);
+};
+
+export const logout = () => {
+  return axios.post(`${base_url}/logout`);
+};

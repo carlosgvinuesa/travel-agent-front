@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Navbar from "./Components/Navbar/navbar";
 import "./App.css";
 import Routes from "./Routes";
+import Navbar from "./Components/Navbar/navbar";
 import AppContext from "./AppContext";
 import { withRouter } from "react-router";
 import { logout } from "./services/authServices";
@@ -10,8 +10,7 @@ import { logout } from "./services/authServices";
 
 class App extends Component {
   state = {
-    user: {},
-    // user: JSON.parse(localStorage.getItem("user")) || {} (asi estaba)
+    user: JSON.parse(localStorage.getItem("user")) || {},
   };
 
   setUser = (user) => {
@@ -49,3 +48,5 @@ class App extends Component {
 const AppWithRouter = withRouter(App);
 
 export default AppWithRouter;
+
+
