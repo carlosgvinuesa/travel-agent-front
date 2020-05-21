@@ -149,4 +149,6 @@ class AuthForm extends Component {
   }
 }
 
+AuthForm.contextType = AppContext;
+
 export default AuthForm;
