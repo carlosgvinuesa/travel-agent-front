@@ -11,10 +11,15 @@ import { logout } from "./services/authServices";
 class App extends Component {
   state = {
     user: JSON.parse(localStorage.getItem("user")) || {},
+    userbase: {}
   };
 
   setUser = (user) => {
     this.setState({ user });
+  };
+
+  setUserbase = (userbase) => {
+    this.setState({ userbase });
   };
 
   logout = () => {
@@ -27,12 +32,13 @@ class App extends Component {
   };
 
   render() {
-    const { state, setUser, logout } = this;
+    const { state, setUser, setUserbase, logout } = this;
     return (
       <AppContext.Provider
         value={{
           state,
           setUser,
+          setUserbase,
           logout,
         }}
       >
