@@ -24,7 +24,7 @@ const Card = ({
 }) => {
   return (
     <div
-      className="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin"
+      className="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-card uk-card-hover"
       uk-grid="true"
     >
       <div className="uk-card-media-left uk-cover-container">
@@ -32,10 +32,12 @@ const Card = ({
       </div>
       <div>
         <div className="uk-card-body">
-          <h3 className="uk-card-title">Media Left</h3>
-          <div>Name: {name} {last_name}</div>
+          <h3 className="uk-card-title">
+            {name} {last_name}
+          </h3>
           <div>email: {email}</div>
           <div>role: {role}</div>
+          <div>description: {description}</div>
         </div>
       </div>
     </div>

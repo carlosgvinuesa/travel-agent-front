@@ -11,16 +11,17 @@ import { logout } from "./services/authServices";
 class App extends Component {
   state = {
     user: JSON.parse(localStorage.getItem("user")) || {},
-    userbase: {}
+    base: {},
   };
 
   setUser = (user) => {
     this.setState({ user });
   };
 
-  setUserbase = (userbase) => {
-    this.setState({ userbase });
+  setBase = (base) => {
+    this.setState({ base });
   };
+
 
   logout = () => {
     const { history } = this.props;
@@ -32,14 +33,21 @@ class App extends Component {
   };
 
   render() {
-    const { state, setUser, setUserbase, logout } = this;
+    const {
+      state,
+      setUser,
+      logout,
+      base,
+      setBase,
+    } = this;
     return (
       <AppContext.Provider
         value={{
           state,
           setUser,
-          setUserbase,
           logout,
+          base,
+          setBase,
         }}
       >
         <div className="App">
@@ -54,5 +62,3 @@ class App extends Component {
 const AppWithRouter = withRouter(App);
 
 export default AppWithRouter;
-
-

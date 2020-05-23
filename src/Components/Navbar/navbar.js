@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = ({ user, logout }) => {
+const Navbar = ({ user, logout, selectModel }) => {
   return (
     <header>
       <nav className="uk-navbar-container" uk-navbar="true">
@@ -18,8 +18,8 @@ const Navbar = ({ user, logout }) => {
                     <li><Link to='/collection/hotels'>Hotels</Link></li>
                     <li><Link to='/collection/restaurants'>Restaurants</Link></li>
                     <li><Link to='/collection/experiences'>Experiences</Link></li>
-                    <li><Link to='/collection/transport'>Transport</Link></li>
-                    <li><Link to='/collection/users'>Users</Link></li>
+                    <li><Link to='/collection/transports'>Transport</Link></li>
+                    <li><Link to='/collection/userbase'>Users</Link></li>
                   </ul>
                 </div>
             </li>
