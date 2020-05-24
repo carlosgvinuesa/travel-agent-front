@@ -5,6 +5,8 @@ import ClientForm from "./Components/Forms/ClientForm/clientForm";
 import TransportForm from "./Components/Forms/TransportForm/transportForm";
 import InquiryForm from "./Components/Forms/InquiryForm/inquiryForm";
 import SharedForm from "./Components/Forms/SharedForm/sharedForm";
+import Collection from "./Components/Collection/collection"
+
 
 
 const Routes = () => (
@@ -18,6 +20,7 @@ const Routes = () => (
     <Route exact path="/transports/new" component={TransportForm}/>
     <Route exact path="/inquiries/new" component={InquiryForm}/>
     <Route exact path="/reservations/new" component={SharedForm}/>
+    <Route exact path="/collection/:model" component={Collection} />
   </Switch>
 );
 

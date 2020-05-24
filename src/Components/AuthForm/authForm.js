@@ -18,7 +18,9 @@ class AuthForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+
     console.log(this.props);
+
     const isLogin = this.props.location.pathname === "/login";
     const { setUser } = this.context;
     const { user: credentials } = this.state;
