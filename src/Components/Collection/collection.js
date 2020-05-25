@@ -79,9 +79,7 @@ class Collection extends Component {
   render() {
     const { base, user } = this.context.state;
     const { model, item } = this.state;
-    console.log(`este es el item seteado ${item}` )
     const detail = denormalizeData(base).find(x => x._id === item);
-    console.log(detail)
     return (
       <div>
         <h1>{this.props.match.params.model.toUpperCase()}</h1>

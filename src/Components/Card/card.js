@@ -31,7 +31,6 @@ class Card extends Component {
       initial_date,
       final_date,
       status,
-      userId,
     } = this.props;
 
     const {handleClick} = this;
@@ -44,7 +43,7 @@ class Card extends Component {
         <div className="uk-padding-remove uk-cover-container uk-card-media-left">
           <Slider images={images} />
         </div>
-        <div className="uk-padding-remove uk-margin-small uk-card-body uk-text-top">
+        <div className="uk-padding-remove uk-margin-small uk-card-body uk-text-top" onClick={handleClick}>
           <h3 className="uk-text-top uk-padding-remove uk-card-title">
             {name} {last_name}
           </h3>
