@@ -2,7 +2,7 @@ import React from "react";
 
 const Slider = ({ images }) => (
   <div
-    className="uk-position-relative uk-visible-toggle uk-light"
+    className="uk-padding-remove uk-position-relative uk-visible-toggle uk-light"
     uk-slideshow="animation: fade;ratio: 2:2;max-height: 500"
   >
     <ul className="uk-slideshow-items">
