@@ -27,10 +27,15 @@ class Collection extends Component {
 
   state = {
     model: "",
+    item: {},
   };
 
   setModel = (model) => {
     this.setState({ model });
+  };
+  
+  setItem = (item) => {
+    this.setState({ item });
   };
 
   componentDidMount() {
@@ -73,16 +78,18 @@ class Collection extends Component {
 
   render() {
     const { base, user } = this.context.state;
+    const { model, item } = this.state;
+    const detail = denormalizeData(base).find(x => x._id === item);
     return (
       <div>
         <h1>{this.props.match.params.model.toUpperCase()}</h1>
         <Searchbar />
-        <div className="uk-flex-inline uk-grid uk-padding-remove">
-          <div className="uk-container uk-width-1-2 uk-padding-remove">
-            <CardHolder base={base} user={user} model={this.state.model} />
+        <div className="uk-grid">
+          <div className="uk-margin-small-left uk-margin-small uk-width-1-2">
+            <CardHolder base={base} user={user} model={model} setItem={this.setItem}/>
           </div>
-          <div className="uk-width-1-2 uk-padding-remove">
-            <CardDetail />
+          <div className="uk-width-expand">
+            <CardDetail user={user} model={model} {...detail} />
           </div>
         </div>
       </div>
