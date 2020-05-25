@@ -8,12 +8,6 @@ class TransportForm extends Component {
         transport: {}
     };
 
-    // componentDidMount() {
-    //     const {path} = this.props.match;
-    //     const model = path.split("/")[1];
-    //     console.log("Model:", model);
-    // }
-
     handleChange = (e) => {
         let { transport } = this.state;
         transport = { ...transport, [e.target.name]: e.target.value };
@@ -32,11 +26,10 @@ class TransportForm extends Component {
         const service_type = document.getElementById("servie_type").value
         const vehicle_type = document.getElementById("vehicle_type").value
         transport = { ...transport, "service_type": service_type, "vehicle_type": vehicle_type }
-        console.log(transport);
         const { history } = this.props;
         createTransport(transport)
             .then((res) => {
-                history.push("/transports/new");
+                history.push("/");
             })
             .catch((res) => console.error(res.response));
     };
@@ -51,7 +44,7 @@ class TransportForm extends Component {
                     <InputField
                         name="name"
                         id="Route"
-                        value={transport.route}
+                        value={transport.name}
                         placeholder="Add route"
                         handleChange={this.handleChange}
                     />

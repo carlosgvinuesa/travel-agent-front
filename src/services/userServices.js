@@ -6,3 +6,7 @@ axios.defaults.withCredentials = true;
 export const getUserbase = () => {
   return axios.get(`${base_url}/users`);
 };
+
+export const searchUser = (query) => {
+  return axios.get(`${base_url}/users/search?${query}`);
+};
