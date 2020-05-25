@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { createClient } from "../../../services/clientServices";
+import { searchUser } from "../../../services/userServices";
 import InputField from "../../Common/InputField/inputField";
 import TextAreaField from "../../Common/TextAreaField/textAreaField";
 
 class ClientForm extends Component {
     state = {
-        client: {}
+        client: {},
     };
 
     handleChange = (e) => {
@@ -19,6 +20,13 @@ class ClientForm extends Component {
         client = { ...client, [e.target.name]: e.target.value.split(",") };
         this.setState({ client });
     };
+
+    handleClick = () => {
+        let { email } = this.state.client;
+        searchUser(`email=${email}`).then((res) => {
+            console.log("Client:", res);
+        })
+    }
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -35,16 +43,20 @@ class ClientForm extends Component {
         const { client } = this.state;
         return (
             <div className="uk-modal-body">
+                <div className="uk-margin" uk-margin="true">
+                    <input
+                        name="email"
+                        className="uk-input uk-form-width-medium"
+                        type="text"
+                        value={client.email}
+                        placeholder="Email address"
+                        onChange={this.handleChange}
+                    />
+                    <button className="uk-button uk-button-default uk-text-capitalize" onClick={this.handleClick}>Import user</button>
+                </div>
                 <form className="uk-width-2-3" onSubmit={this.handleSubmit}>
                     <legend className="uk-legend">New Client</legend>
 
-                    <div className="uk-margin" uk-margin="true">
-                        <div uk-form-custom="target: true">
-                            <input className="uk-input uk-form-width-medium" type="text" placeholder="Email address" />
-                        </div>
-                        <button className="uk-button uk-button-default uk-text-capitalize">Import user</button>
-                    </div>
-                    
                     <InputField
                         name="name"
                         id="Name"
