@@ -9,8 +9,8 @@ const InputField = ({
   value = "",
   ...props
 }) => (
-  <div className="uk-margin">
-    <label className="uk-form-label uk-text-capitalize">
+  <div className="uk-margin uk-text-left">
+    <label className="uk-form-label uk-text-capitalize uk-margin-left">
       {id}:
     </label>
     <div className="uk-form-controls">

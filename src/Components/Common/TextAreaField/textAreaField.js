@@ -1,9 +1,9 @@
 import React from "react";
 
 const TextAreaField = ({ name, handleChange, hint, value }) => (
-  <div className="uk-margin">
-    <label className="uk-form-label uk-text-capitalize" htmlFor={name}>
-      {name} {hint && `(${hint})`}:
+  <div className="uk-margin uk-text-left">
+    <label className="uk-form-label uk-text-capitalize uk-margin-left" htmlFor={name}>
+      {name}:
     </label>
     <div className="uk-form-controls">
       <textarea
@@ -14,6 +14,7 @@ const TextAreaField = ({ name, handleChange, hint, value }) => (
         cols="30"
         rows="5"
         value={value}
+        placeholder={hint}
       ></textarea>
     </div>
   </div>
