@@ -7,7 +7,7 @@ class CardHolder extends Component {
   render() {
     const { base, user, model, setItem } = this.props;
     return (
-        <div className=" uk-grid uk-grid-small uk-child-width-expand@s uk-grid-match uk-child-width-1-3@l  uk-child-width-1-2@m uk-child-width-1-1@s">
+        <div className=" uk-grid uk-grid-small uk-child-width-expand@s uk-grid-match uk-child-width-1-3@l  uk-child-width-1-2@m uk-child-width-1-1@s" uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 500; repeat: true">
           {denormalizeData(base).map((userItem, index) => (
             <Card key={index} {...userItem} userId={user._id} model={model} setItem={setItem}/>
           ))}

@@ -12,3 +12,7 @@ export const getClients = () => {
   return axios.get(`${base_url}/clients`);
 };
 
+export const deleteClient = (id) => {
+  return axios.delete(`${base_url}/clients/${id}`);
+};
+

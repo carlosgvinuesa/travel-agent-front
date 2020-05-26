@@ -10,3 +10,7 @@ export const createTransport = (transport) => {
 export const getTransports = () => {
   return axios.get(`${base_url}/transports`);
 };
+
+export const deleteTransport = (id) => {
+  return axios.delete(`${base_url}/transports/${id}`);
+};
