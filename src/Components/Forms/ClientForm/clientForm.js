@@ -6,6 +6,7 @@ import TextAreaField from "../../Common/TextAreaField/textAreaField";
 
 class ClientForm extends Component {
     state = {
+        user: {},
         client: {},
     };
 
@@ -23,8 +24,12 @@ class ClientForm extends Component {
 
     handleClick = () => {
         let { email } = this.state.client;
+        let { user, client } = this.state;
         searchUser(`email=${email}`).then((res) => {
-            console.log("Client:", res);
+            let { name, last_name, _id } = res.data.result[0];
+            user = { ...client, "name": name, "last_name": last_name }
+            client = { "user": _id }
+            this.setState({ user: user, client: client });
         })
     }
 
@@ -32,15 +37,16 @@ class ClientForm extends Component {
         e.preventDefault();
         const { client } = this.state;
         const { history } = this.props;
-        createClient(client)
-            .then((res) => {
-                history.push("/");
-            })
-            .catch((res) => console.error(res.response));
+        console.log(this.state.client);
+        // createClient(client)
+        //     .then((res) => {
+        //         history.push("/");
+        //     })
+        //     .catch((res) => console.error(res.response));
     };
 
     render() {
-        const { client } = this.state;
+        const { user, client } = this.state;
         return (
             <div className="uk-modal-body">
                 <div className="uk-margin" uk-margin="true">
@@ -60,21 +66,21 @@ class ClientForm extends Component {
                     <InputField
                         name="name"
                         id="Name"
-                        value={client.name}
+                        value={user.name}
                         placeholder="Client's name"
                         handleChange={this.handleChange}
                     />
                     <InputField
                         name="last_name"
                         id="Last name"
-                        value={client.last_name}
+                        value={user.last_name}
                         placeholder="Client's last name"
                         handleChange={this.handleChange}
                     />
                     <InputField
                         name="email"
                         id="Email"
-                        value={client.email}
+                        value={user.email}
                         placeholder="Client's email"
                         handleChange={this.handleChange}
                     />
@@ -84,7 +90,7 @@ class ClientForm extends Component {
                         handleChange={this.handleChange}
                     />
                     <button type="submit" className="uk-button uk-button-primary uk-text-capitalize">
-                        Create Customer
+                        Create Client
                     </button>
                 </form>
             </div>
