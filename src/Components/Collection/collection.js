@@ -7,12 +7,12 @@ import { normalizeData, denormalizeData } from "../../utils/dataUtils";
 import { getRestaurants } from "../../services/restaurantServices";
 import { getHotels } from "../../services/hotelServices";
 import { getClients } from "../../services/clientServices";
-import { getUserbase } from "../../services/userServices";
+import { getUserbase, deleteUser } from "../../services/userServices";
 import { getExperiences } from "../../services/experienceServices";
 import { getTransports } from "../../services/transportServices";
 import { getReservations } from "../../services/reservationServices";
 
-const services = {
+const getServices = {
   restaurants: getRestaurants,
   hotels: getHotels,
   clients: getClients,
@@ -20,6 +20,15 @@ const services = {
   experiences: getExperiences,
   transports: getTransports,
   reservations: getReservations,
+};
+const deleteServices = {
+  // restaurants: deleteRestaurant,
+  // hotels: deleteHotel,
+  // clients: deleteClient,
+  userbase: deleteUser,
+  // experiences: deleteExperience,
+  // transports: deleteTransport,
+  // reservations: deleteReservation,
 };
 
 class Collection extends Component {
@@ -38,6 +47,8 @@ class Collection extends Component {
     this.setState({ item });
   };
 
+  
+
   componentDidMount() {
     const { user } = this.context.state;
     const { setBase } = this.context;
@@ -47,7 +58,7 @@ class Collection extends Component {
     if (!user._id) {
       history.push("/login");
     } else {
-      services[model]().then((res) => {
+      getServices[model]().then((res) => {
         const { result } = res.data;
         const data = normalizeData(result);
         setBase(data);
@@ -66,7 +77,7 @@ class Collection extends Component {
       if (!user._id) {
         history.push("/login");
       } else {
-        services[model]().then((res) => {
+        getServices[model]().then((res) => {
           const { result } = res.data;
           const data = normalizeData(result);
           setBase(data);
@@ -80,6 +91,7 @@ class Collection extends Component {
     const { base, user } = this.context.state;
     const { model, item } = this.state;
     const detail = denormalizeData(base).find(x => x._id === item);
+    
     return (
       <div>
         <h1>{this.props.match.params.model.toUpperCase()}</h1>
@@ -89,7 +101,7 @@ class Collection extends Component {
             <CardHolder base={base} user={user} model={model} setItem={this.setItem}/>
           </div>
           <div className="uk-width-expand">
-            <CardDetail user={user} model={model} {...detail} />
+            <CardDetail user={user} model={model} {...detail} item={item} setItem={this.setItem} />
           </div>
         </div>
       </div>

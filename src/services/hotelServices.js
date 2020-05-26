@@ -12,3 +12,6 @@ export const getHotels = () => {
   return axios.get(`${base_url}/hotels`);
 };
 
+export const deleteHotel = (id) => {
+  return axios.delete(`${base_url}/hotels/${id}`);
+};

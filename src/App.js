@@ -5,13 +5,14 @@ import Navbar from "./Components/Navbar/navbar";
 import AppContext from "./AppContext";
 import { withRouter } from "react-router";
 import { logout } from "./services/authServices";
-// import { denormalizeData, normalizeData } from "./utils/dataUtils";
+import { denormalizeData, normalizeData } from "./utils/dataUtils";
 // import { getProperties } from "./services/propertyServices";
 
 class App extends Component {
   state = {
     user: JSON.parse(localStorage.getItem("user")) || {},
     base: {},
+    filtered: {},
   };
 
   setUser = (user) => {
@@ -22,6 +23,23 @@ class App extends Component {
     this.setState({ base });
   };
 
+  setFiltered = (filtered) => {
+    this.setFiltered({ filtered });
+  };
+
+  handleChange = (e) => {
+    const { base, filtered } = this.state;
+    const { setFiltered } = this;
+    // setFiltered(base)
+    // console.log(filtered)
+    // const withFilter = denormalizeData(filtered).filter((x) =>
+    //   x.name.toLowerCase().includes(e.target.value.toLowerCase())
+    // );
+    // const normWithFilter = normalizeData(withFilter)
+    // e.preventDefault();
+    // console.log(normWithFilter);
+    // setFiltered(normWithFilter)
+  };
 
   logout = () => {
     const { history } = this.props;
@@ -33,13 +51,7 @@ class App extends Component {
   };
 
   render() {
-    const {
-      state,
-      setUser,
-      logout,
-      base,
-      setBase,
-    } = this;
+    const { state, setUser, logout, base, setBase, handleChange } = this;
     return (
       <AppContext.Provider
         value={{
@@ -48,6 +60,7 @@ class App extends Component {
           logout,
           base,
           setBase,
+          handleChange,
         }}
       >
         <div className="App">

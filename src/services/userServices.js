@@ -10,3 +10,7 @@ export const getUserbase = () => {
 export const searchUser = (query) => {
   return axios.get(`${base_url}/users/search?${query}`);
 };
+
+export const deleteUser = (id) => {
+  return axios.delete(`${base_url}/users/${id}`);
+};

@@ -12,4 +12,6 @@ export const getRestaurants = () => {
   return axios.get(`${base_url}/restaurants`);
 };
 
-
+export const deleteRestaurant = (id) => {
+  return axios.delete(`${base_url}/restaurants/${id}`);
+};
