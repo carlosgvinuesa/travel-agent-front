@@ -12,3 +12,6 @@ export const getExperiences = () => {
   return axios.get(`${base_url}/experiences`);
 };
 
+export const deleteExperience = (id) => {
+  return axios.delete(`${base_url}/experiences/${id}`);
+};

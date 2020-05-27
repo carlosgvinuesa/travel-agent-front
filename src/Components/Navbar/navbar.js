@@ -31,15 +31,6 @@ const Navbar = ({ user, logout }) => {
             {user._id ? (
               <ul className="uk-navbar-nav">
                 <li>
-                  <button><Link to="/hotels/new">New Hotel</Link></button>
-                  <button><Link to="/clients/new">New Client</Link></button>
-                  <button><Link to="/restaurants/new">New Restaurant</Link></button>
-                  <button><Link to="/experiences/new">New Experience</Link></button>
-                  <button><Link to="/transports/new">New Transport</Link></button>
-                  <button><Link to="/inquiries/new">New Inquiry</Link></button>
-                  <button><Link to="/reservations/new">New Reservation</Link></button>
-                </li>
-                <li>
                   <Link to="/profile">
                     <div className="uk-grid-small uk-flex-middle" uk-grid="true">
                       <div className="uk-width-expand">
