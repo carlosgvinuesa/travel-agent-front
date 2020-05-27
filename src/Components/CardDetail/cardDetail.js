@@ -24,14 +24,12 @@ const deleteServices = {
 };
 
 class CardDetail extends Component {
-  removeItem = () => { };
   deleteItem = () => {
     const { model, item, setItem } = this.props;
     // deleteServices[model](item)
     setItem({});
     console.log(`boton de borrar ${item}`);
   };
-
   render() {
     const {
       images = [],
@@ -61,104 +59,6 @@ class CardDetail extends Component {
         {isSelected ? (
           <div>Select one item on the left to see the detail</div>
         ) : (
-
-            <div>
-              <div className="uk-margin-small uk-card-body uk-text-top">
-                <h3 className="uk-text-top uk-card-title">
-                  {name} {last_name}
-                </h3>
-                <div className="uk-text-top">
-                  {(() => {
-                    switch (model) {
-                      case "userbase":
-                        return (
-                          <div>
-                            <div>
-                              <b>Email:</b> {email}
-                            </div>
-                            <div>
-                              <b>Role:</b> {role}
-                            </div>
-                          </div>
-                        );
-                        break;
-                      case "clients":
-                        return (
-                          <div>
-                            <div>
-                              <b>Email:</b> {email}
-                            </div>
-                            <div>
-                              <b>Role:</b> {role}
-                            </div>
-                          </div>
-                        );
-                      case "hotels":
-                        return (
-                          <div className="uk-flex uk-flex-wrap uk-flex-wrap-around">
-                            {description === undefined ? null : (
-                              <div className="uk-margin-left uk-margin">
-                                <b>Description:</b> {description}
-                              </div>
-                            )}
-                            {price < 1 ? null : (
-                              <div className="uk-margin-left uk-margin-small">
-                                <b>Price:</b> {price}
-                              </div>
-                            )}
-                            {city === undefined ? null : (
-                              <div className="uk-margin-left uk-margin-small">
-                                <b>City:</b> {city}
-                              </div>
-                            )}
-                            {types.length < 1 ? null : (
-                              <div className="uk-margin-left uk-margin-small">
-                                <b>Types:</b> {types}
-                              </div>
-                            )}
-                            {interests.length < 1 ? null : (
-                              <div className="uk-margin-left uk-margin-small">
-                                <b>Interests:</b> {interests}
-                              </div>
-                            )}
-                            {address === undefined ? null : (
-                              <div className="uk-margin-left uk-margin-small">
-                                <b>Address:</b> {address}
-                              </div>
-                            )}
-                            {comments === undefined ? null : (
-                              <div className="uk-margin-left uk-margin-small">
-                                <b>Comments:</b> {comments}
-                              </div>
-                            )}
-                            {phone_numbers.length < 1 ? null : (
-                              <div className="uk-margin-left uk-margin-small">
-                                <b>Phone:</b> {phone_numbers}
-                              </div>
-                            )}
-                            {contacts.length < 1 ? null : (
-                              <div className="uk-margin-left uk-margin-small">
-                                <b>Contacts:</b> {contacts}
-                              </div>
-                            )}
-                          </div>
-                        );
-                        break;
-                      case "restaurants":
-                        return (
-                          <div>
-                            <div>
-                              <b>City:</b> {city}
-                            </div>
-                            <div>
-                              <b>Types:</b> {types}
-                            </div>
-                            <div>
-                              <b>Interests:</b> {interests}
-                            </div>
-                            <div>
-                              <b>Price:</b> {price}{" "}
-                            </div>
           <div>
             <div className="uk-margin-small uk-card-body uk-text-top">
               <h3 className="uk-text-top uk-card-title">
@@ -238,17 +138,17 @@ class CardDetail extends Component {
                     </div>
                   )}
                 </div>
-
               </div>
-              <div>
-                <button className="uk-button uk-button-default uk-button-small uk-width-small">
-                  EDIT
+            </div>
+            <div>
+              <button className="uk-button uk-button-default uk-button-small uk-width-small">
+                EDIT
               </button>
-                <button
-                  className="uk-button uk-button-danger uk-button-small uk-width-small"
-                  uk-toggle="target: #delWarning"
-                >
-                  DELETE
+              <button
+                className="uk-button uk-button-danger uk-button-small uk-width-small"
+                uk-toggle="target: #delWarning"
+              >
+                DELETE
               </button>
               <div id="delWarning" uk-modal="true">
                 <div className="uk-modal-dialog uk-modal-body">
@@ -271,15 +171,15 @@ class CardDetail extends Component {
                     >
                       DELETE
                     </button>
-                    </p>
-                  </div>
+                  </p>
                 </div>
               </div>
-              <div className="uk-padding-remove uk-cover-container uk-margin">
-                <Slider images={images} />
-              </div>
             </div>
-          )}
+            <div className="uk-padding-remove uk-cover-container uk-margin">
+              <Slider images={images} />
+            </div>
+          </div>
+        )}
       </div>
     );
   }
