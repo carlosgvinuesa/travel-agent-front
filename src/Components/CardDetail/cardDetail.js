@@ -26,10 +26,11 @@ const deleteServices = {
 class CardDetail extends Component {
   deleteItem = () => {
     const { model, item, setItem } = this.props;
-    // deleteServices[model](item)
+    deleteServices[model](item)
     setItem({});
     console.log(`boton de borrar ${item}`);
   };
+
   render() {
     const {
       images = [],

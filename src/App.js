@@ -24,21 +24,21 @@ class App extends Component {
   };
 
   setFiltered = (filtered) => {
-    this.setFiltered({ filtered });
+    this.setState({ filtered });
   };
 
   handleChange = (e) => {
     const { base, filtered } = this.state;
     const { setFiltered } = this;
-    // setFiltered(base)
-    // console.log(filtered)
-    // const withFilter = denormalizeData(filtered).filter((x) =>
-    //   x.name.toLowerCase().includes(e.target.value.toLowerCase())
-    // );
-    // const normWithFilter = normalizeData(withFilter)
-    // e.preventDefault();
-    // console.log(normWithFilter);
-    // setFiltered(normWithFilter)
+    setFiltered(base)
+    console.log(filtered)
+    const withFilter = denormalizeData(filtered).filter((x) =>
+      x.name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    const normWithFilter = normalizeData(withFilter)
+    e.preventDefault();
+    console.log(normWithFilter);
+    setFiltered(normWithFilter)
   };
 
   logout = () => {

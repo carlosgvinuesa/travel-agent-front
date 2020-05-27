@@ -16,6 +16,7 @@ class Searchbar extends Component {
   //   console.log(normWithFilter);
   //   // setFilteredBase({withFilter});
   // };
+  
   render() {
     return (
       <div className="uk-margin">
