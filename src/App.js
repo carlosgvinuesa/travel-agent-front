@@ -12,7 +12,7 @@ class App extends Component {
   state = {
     user: JSON.parse(localStorage.getItem("user")) || {},
     base: {},
-    filtered: {},
+    filtered: this.base,
   };
 
   setUser = (user) => {
@@ -28,17 +28,18 @@ class App extends Component {
   };
 
   handleChange = (e) => {
+    e.preventDefault();
     const { base, filtered } = this.state;
     const { setFiltered } = this;
-    setFiltered(base)
-    console.log(filtered)
-    const withFilter = denormalizeData(filtered).filter((x) =>
+    // setFiltered(base)
+    // console.log(filtered)
+    const withFilter = denormalizeData(base).filter((x) =>
       x.name.toLowerCase().includes(e.target.value.toLowerCase())
     );
     const normWithFilter = normalizeData(withFilter)
-    e.preventDefault();
-    console.log(normWithFilter);
+    // console.log(normWithFilter);
     setFiltered(normWithFilter)
+    console.log(filtered)
   };
 
   logout = () => {

@@ -24,6 +24,9 @@ const Navbar = ({ user, logout }) => {
                   </ul>
                 </div>
             </li>
+            <li className="uk-active">
+              <Link to="/collection/reservations">Reservations</Link>
+            </li>
           </ul>
         </div>
         <div className="uk-navbar-right">
