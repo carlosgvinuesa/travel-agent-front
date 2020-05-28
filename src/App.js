@@ -28,16 +28,16 @@ class App extends Component {
   };
 
   handleChange = (e) => {
-    const { base, filtered } = this.state;
-    const { setFiltered } = this;
-    setFiltered(base)
-    console.log(filtered)
-    const withFilter = denormalizeData(filtered).filter((x) =>
-      x.name.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    const normWithFilter = normalizeData(withFilter)
     e.preventDefault();
-    console.log(normWithFilter);
+    const { base } = this.state;
+    const { setFiltered } = this;
+    const withFilter = []
+    const withNameFilter = denormalizeData(base).filter((x) =>
+      x.name.toLowerCase().includes(e.target.value.toLowerCase()));
+    const withCityFilter = denormalizeData(base).filter((x) =>
+    x.city.toLowerCase().includes(e.target.value.toLowerCase()));
+    withFilter.push(...withNameFilter, ...withCityFilter)
+    const normWithFilter = normalizeData(withFilter)
     setFiltered(normWithFilter)
   };
 
@@ -51,7 +51,7 @@ class App extends Component {
   };
 
   render() {
-    const { state, setUser, logout, base, setBase, handleChange } = this;
+    const { state, setUser, logout, base, setBase, handleChange, setFiltered } = this;
     return (
       <AppContext.Provider
         value={{
@@ -61,6 +61,7 @@ class App extends Component {
           base,
           setBase,
           handleChange,
+          setFiltered
         }}
       >
         <div className="App">

@@ -1,10 +1,3 @@
-import { deleteUser } from "../../services/userServices";
-import { deleteRestaurant } from "../../services/restaurantServices";
-import { deleteHotel } from "../../services/hotelServices";
-import { deleteClient } from "../../services/clientServices";
-import { deleteExperience } from "../../services/experienceServices";
-import { deleteTransport } from "../../services/transportServices";
-import { deleteReservation } from "../../services/reservationServices";
 import React, { Component } from "react";
 import Slider from "../Common/Slider/slider";
 import dayjs from "dayjs";
@@ -12,25 +5,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es";
 dayjs.extend(relativeTime);
 
-
-const deleteServices = {
-  restaurants: deleteRestaurant,
-  hotels: deleteHotel,
-  clients: deleteClient,
-  userbase: deleteUser,
-  experiences: deleteExperience,
-  transports: deleteTransport,
-  reservations: deleteReservation,
-};
-
 class CardDetail extends Component {
-  deleteItem = () => {
-    const { model, item, setItem } = this.props;
-    deleteServices[model](item)
-    setItem({});
-    console.log(`boton de borrar ${item}`);
-  };
-
   render() {
     const {
       images = [],
@@ -54,12 +29,9 @@ class CardDetail extends Component {
       final_date,
       status,
     } = this.props;
-    const isSelected = name === undefined;
+    
     return (
-      <div className="uk-card uk-card-small" uk-grid="true">
-        {isSelected ? (
-          <div>Select one item on the left to see the detail</div>
-        ) : (
+      <div className="uk-card " uk-grid="true">
           <div>
             <div className="uk-margin-small uk-card-body uk-text-top">
               <h3 className="uk-text-top uk-card-title">
@@ -141,46 +113,11 @@ class CardDetail extends Component {
                 </div>
               </div>
             </div>
-            <div>
-              <button className="uk-button uk-button-default uk-button-small uk-width-small">
-                EDIT
-              </button>
-              <button
-                className="uk-button uk-button-danger uk-button-small uk-width-small"
-                uk-toggle="target: #delWarning"
-              >
-                DELETE
-              </button>
-              <div id="delWarning" uk-modal="true">
-                <div className="uk-modal-dialog uk-modal-body">
-                  <h2 className="uk-modal-title">Warning!</h2>
-                  <p>
-                    Are you sure you want to delete? This action is
-                    irreversible!
-                  </p>
-                  <p className="uk-text-right">
-                    <button
-                      className="uk-button uk-button-default uk-modal-close"
-                      type="button"
-                    >
-                      CANCEL
-                    </button>
-                    <button
-                      className="uk-button uk-button-danger uk-modal-close"
-                      type="button"
-                      onClick={this.deleteItem}
-                    >
-                      DELETE
-                    </button>
-                  </p>
-                </div>
-              </div>
-            </div>
             <div className="uk-padding-remove uk-cover-container uk-margin">
               <Slider images={images} />
             </div>
           </div>
-        )}
+        }
       </div>
     );
   }
