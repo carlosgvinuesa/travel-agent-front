@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Searchbar from "../Searchbar/searchbar";
 import CardHolder from "../CardHolder/cardHolder";
 import CardDetail from "../CardDetail/cardDetail";
+import Card from "../Card/card"
 import AppContext from "../../AppContext";
 import { Link } from "react-router-dom";
 import { normalizeData, denormalizeData } from "../../utils/dataUtils";
@@ -89,21 +90,24 @@ class Collection extends Component {
     const iniFilter = filtered === undefined ? base : filtered;
     return (
       <div>
-      <div className="uk-flex uk-margin-left uk-margin-small-top">
+        <div className="uk-flex uk-margin-left uk-margin-small-top">
           <button className="uk-button uk-button-default uk-button-small">
             <Link className="uk-link-reset" to={`/${model}/new`}>Add new {model.slice(0, -1)}</Link>
           </button>
         </div>
+
         <h1 className="uk-margin-small-top" >{this.props.match.params.model.toUpperCase()}</h1>
+
         <Searchbar />
+
         <div className="uk-grid">
-          <div className="uk-margin-small-left uk-margin-small uk-width-1-2">
-            <CardHolder filtered={iniFilter} user={user} model={model} setItem={this.setItem} />
-          </div>
-          <div className="uk-width-expand">
-            <CardDetail user={user} model={model} {...detail} item={item} setItem={this.setItem} />
+          <div className="uk-grid uk-grid-small uk-child-width-expand@s uk-grid-match uk-child-width-1-3@l  uk-child-width-1-3@m uk-child-width-1-3@s">
+            {denormalizeData(iniFilter).map((userItem, index) => (
+              <Card key={index} {...userItem} detail={detail} user={user} item={item} userId={user._id} model={model} setItem={this.setItem}/>
+            ))}
           </div>
         </div>
+        
       </div>
     );
   }
