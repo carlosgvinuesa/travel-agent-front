@@ -55,7 +55,7 @@ class Collection extends Component {
         const { result } = res.data;
         const data = normalizeData(result);
         setBase(data);
-        // setFiltered(base);
+        setFiltered(this.props.filtered);
         this.setModel(model);
       });
     }
@@ -75,7 +75,7 @@ class Collection extends Component {
           const { result } = res.data;
           const data = normalizeData(result);
           setBase(data);
-          // setFiltered(base);
+          setFiltered(this.props.filtered);
           this.setModel(model);
         });
       }
@@ -86,6 +86,7 @@ class Collection extends Component {
     const { base, user, filtered } = this.context.state;
     const { model, item } = this.state;
     const detail = denormalizeData(base).find(x => x._id === item);
+    const iniFilter = filtered === undefined ? base : filtered;
     return (
       <div>
       <div className="uk-flex uk-margin-left uk-margin-small-top">
@@ -97,7 +98,7 @@ class Collection extends Component {
         <Searchbar />
         <div className="uk-grid">
           <div className="uk-margin-small-left uk-margin-small uk-width-1-2">
-            <CardHolder base={base} user={user} model={model} setItem={this.setItem} />
+            <CardHolder filtered={iniFilter} user={user} model={model} setItem={this.setItem} />
           </div>
           <div className="uk-width-expand">
             <CardDetail user={user} model={model} {...detail} item={item} setItem={this.setItem} />

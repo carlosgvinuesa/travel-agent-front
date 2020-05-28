@@ -12,7 +12,7 @@ class App extends Component {
   state = {
     user: JSON.parse(localStorage.getItem("user")) || {},
     base: {},
-    filtered: this.base,
+    filtered: {},
   };
 
   setUser = (user) => {
@@ -29,17 +29,16 @@ class App extends Component {
 
   handleChange = (e) => {
     e.preventDefault();
-    const { base, filtered } = this.state;
+    const { base } = this.state;
     const { setFiltered } = this;
-    // setFiltered(base)
-    // console.log(filtered)
-    const withFilter = denormalizeData(base).filter((x) =>
-      x.name.toLowerCase().includes(e.target.value.toLowerCase())
-    );
+    const withFilter = []
+    const withNameFilter = denormalizeData(base).filter((x) =>
+      x.name.toLowerCase().includes(e.target.value.toLowerCase()));
+    const withCityFilter = denormalizeData(base).filter((x) =>
+    x.city.toLowerCase().includes(e.target.value.toLowerCase()));
+    withFilter.push(...withNameFilter, ...withCityFilter)
     const normWithFilter = normalizeData(withFilter)
-    // console.log(normWithFilter);
     setFiltered(normWithFilter)
-    console.log(filtered)
   };
 
   logout = () => {
@@ -52,7 +51,7 @@ class App extends Component {
   };
 
   render() {
-    const { state, setUser, logout, base, setBase, handleChange } = this;
+    const { state, setUser, logout, base, setBase, handleChange, setFiltered } = this;
     return (
       <AppContext.Provider
         value={{
@@ -62,6 +61,7 @@ class App extends Component {
           base,
           setBase,
           handleChange,
+          setFiltered
         }}
       >
         <div className="App">

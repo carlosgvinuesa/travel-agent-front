@@ -5,10 +5,10 @@ import { denormalizeData } from "../../utils/dataUtils";
 
 class CardHolder extends Component {
   render() {
-    const { base, user, model, setItem } = this.props;
+    const { filtered, user, model, setItem } = this.props;
     return (
         <div className="uk-grid uk-grid-small uk-child-width-expand@s uk-grid-match uk-child-width-1-3@l  uk-child-width-1-3@m uk-child-width-1-3@s">
-          {denormalizeData(base).map((userItem, index) => (
+          {denormalizeData(filtered).map((userItem, index) => (
             <Card key={index} {...userItem} userId={user._id} model={model} setItem={setItem}/>
           ))}
         </div>
