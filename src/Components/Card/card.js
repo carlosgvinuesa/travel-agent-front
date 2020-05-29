@@ -131,13 +131,13 @@ class Card extends Component {
             )}
           </div>
 
-          <DetailModal
+          {/* <DetailModal
             model={model}
             user={user}
             item={item}
             itemId={itemId}
             setItemId={setItemId}
-          />
+          /> */}
 
         </div>
       </div>

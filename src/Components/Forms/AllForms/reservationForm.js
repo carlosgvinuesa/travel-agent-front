@@ -9,6 +9,7 @@ class ReservationForm extends Component {
         data: {},
         schedule: [],
         cost: 0,
+        city: "",
     };
 
     createDays = () => {
@@ -28,13 +29,18 @@ class ReservationForm extends Component {
     }
 
     handleChange = (e) => {
-        let { data } = this.state;
+        let { data, city } = this.state;
         if (data.final_date) {
             let { final_date, initial_date } = this.state.data;
             let difference_in_time = new Date(final_date).getTime() - new Date(initial_date).getTime();
             let difference_in_days = Math.abs(difference_in_time / (1000 * 3600 * 24)) + 1;
             data = { ...data, "number_of_days": difference_in_days }
             this.setState({ data });
+        }
+        if (data.cities) {
+            let { cities } = this.state.data;
+            city = cities;
+            this.setState({ city });
         }
         data = { ...data, [e.target.name]: e.target.value };
         this.setState({ data });
@@ -54,7 +60,7 @@ class ReservationForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        let { data, schedule, cost } = this.state;
+        let { data, schedule, cost, city } = this.state;
         const { history } = this.props;
         let status = document.getElementById("status").value;
         data = { ...data, "status": status, "schedule": schedule, "cost": cost };
@@ -66,7 +72,8 @@ class ReservationForm extends Component {
     };
 
     render() {
-        const { data, cost } = this.state;
+        const { data, cost, city } = this.state;
+        console.log("City:", city);
         const { createDays, handleChange, handlePrice, handleSubmit, handleDaily } = this;
         return (
 
@@ -85,7 +92,7 @@ class ReservationForm extends Component {
                         <label className="uk-form-label uk-text-capitalize">Schedule:</label>
                         <div>{createDays()}</div>
 
-                        <DailyModal handlePrice={handlePrice} handleDaily={handleDaily} />
+                        <DailyModal handlePrice={handlePrice} handleDaily={handleDaily} city={city} />
 
                         <div className="uk-margin uk-width-1-1 uk-text-left">
                             <label className="uk-form-label uk-text-capitalize uk-margin-small-left">Comments:</label>
@@ -102,7 +109,7 @@ class ReservationForm extends Component {
                 </form>
                 <button
                     type="submit"
-                    className="uk-width-1-2 uk-button uk-margin-left uk-button-primary uk-align-center"
+                    className="uk-width-1-3 uk-button uk-button-primary uk-align-center"
                     onClick={handleSubmit}>
                     SAVE
                 </button>

@@ -16,6 +16,7 @@ class DataForm extends Component {
     state = {
         data: [],
         price: 0,
+        filteredData: [],
     };
 
     componentDidMount() {
@@ -30,13 +31,18 @@ class DataForm extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.model !== this.props.model) {
-            let { model } = nextProps;
+            let { model, city } = nextProps;
             getServices[model]().then((res) => {
                 const { result } = res.data;
                 const data = denormalizeData(result);
                 const price = data[0].price;
                 this.setState({ data: data, price: price });
             });
+            if (city && model !== "transports") {
+                let { data, filteredData } = this.state;
+                const newData = data.filter(item => item.city === city);
+                this.setState({ filteredData: newData });
+            }
         }
     }
 
@@ -50,20 +56,32 @@ class DataForm extends Component {
     }
 
     render() {
-        const { data, price } = this.state;
+        const { data, price, filteredData } = this.state;
         const { getPrice } = this;
-        const { model } = this.props;
+        const { model, city } = this.props;
+        console.log("Data:", data);
+        console.log("Filtered data:", filteredData);
 
         return (
             <div className="uk-flex-inline uk-width-1-1">
                 <div className="uk-width-2-3 uk-text-left uk-margin-bottom">
                     <label className="uk-form-label uk-margin-small-left uk-text-capitalize">{model === "transports" ? "Routes:" : `${model}:`}</label>
                     <div>
-                        <select className="uk-select" name="name" id={model} onChange={getPrice}>
-                            {data.map((item, index) => (
-                                <option key={index}>{item.name}</option>
-                            ))}
-                        </select>
+                        {model === "transports" ? (
+                            <select className="uk-select" name="name" id={model} onChange={getPrice}>
+                                {data.map((item, index) => (
+                                    <option key={index}>{item.name}</option>
+                                ))}
+                            </select>
+                        ) : (
+                                <select className="uk-select" name="name" id={model} onChange={getPrice}>
+                                    {data.map((item, index) => (item.city === city ? (
+                                        <option key={index}>{item.name}</option>
+                                    ) : null
+                                    ))}
+                                </select>
+                            )}
+
                     </div>
                 </div>
 

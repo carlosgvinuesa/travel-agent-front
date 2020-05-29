@@ -20,7 +20,8 @@ class DailyModal extends Component {
 
     render() {
         const { price } = this.state;
-        let { handleDaily } = this.props;
+        let { handleDaily, city } = this.props;
+        console.log("City daily modal:", city);
 
         return (
             <div>
@@ -31,7 +32,7 @@ class DailyModal extends Component {
                             <h2 className="uk-modal-title">Select itinerary:</h2>
                         </div>
                         <div className="uk-modal-body" uk-overflow-auto="true">
-                            <DailyForm />
+                            <DailyForm city={city}/>
                             <div className="uk-width-1-3 uk-text-left uk-flex uk-flex-column uk-align-right uk-margin-medium-right">
                                 <label className="uk-form-label uk-text-capitalize uk-margin-small-left">Total price:</label>
                                 <input

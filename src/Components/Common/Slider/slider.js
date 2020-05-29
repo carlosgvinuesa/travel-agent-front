@@ -6,11 +6,13 @@ const Slider = ({ images }) => (
     uk-slideshow="animation: fade;ratio: 2:2;max-height: 500"
   >
     <ul className="uk-slideshow-items">
-      {images.map((image, index) => (
-        <li key={index}>
-          <img src={image} alt="" uk-cover="true" />
-        </li>
-      ))}
+      {images !== undefined
+        ? images.map((image, index) => (
+            <li key={index}>
+              <img src={image} alt="" uk-cover="true" />
+            </li>
+          ))
+        : ""}
     </ul>
 
     <a
@@ -28,11 +30,11 @@ const Slider = ({ images }) => (
 
     <div className="uk-position-bottom-center uk-position-small">
       <ul className="uk-dotnav">
-        {images.map((image, index) => (
+        {images !== undefined ? images.map((image, index) => (
           <li key={index} uk-slideshow-item={index}>
             <a href="#">Item 1</a>
           </li>
-        ))}
+        )):""}
       </ul>
     </div>
   </div>
