@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import Searchbar from "../Searchbar/searchbar";
-import CardHolder from "../CardHolder/cardHolder";
-import CardDetail from "../CardDetail/cardDetail";
+import Card from "../Card/card"
 import AppContext from "../../AppContext";
+import CreateModal from "../Forms/AllModals/createModal";
 import { Link } from "react-router-dom";
+import "./collection.css"
 import { normalizeData, denormalizeData } from "../../utils/dataUtils";
 import { getRestaurants } from "../../services/restaurantServices";
 import { getHotels } from "../../services/hotelServices";
 import { getClients } from "../../services/clientServices";
-import { getUserbase, deleteUser } from "../../services/userServices";
+import { getUserbase } from "../../services/userServices";
 import { getExperiences } from "../../services/experienceServices";
 import { getTransports } from "../../services/transportServices";
 import { getReservations } from "../../services/reservationServices";
+import DetailModal from "../DetailModal/detailModal";
 
 const getServices = {
   restaurants: getRestaurants,
@@ -22,21 +24,14 @@ const getServices = {
   transports: getTransports,
   reservations: getReservations,
 };
-const deleteServices = {
-  // restaurants: deleteRestaurant,
-  // hotels: deleteHotel,
-  // clients: deleteClient,
-  userbase: deleteUser,
-  // experiences: deleteExperience,
-  // transports: deleteTransport,
-  // reservations: deleteReservation,
-};
+
 
 class Collection extends Component {
   static contextType = AppContext;
 
   state = {
     model: "",
+    itemId: {},
     item: {},
   };
 
@@ -44,15 +39,17 @@ class Collection extends Component {
     this.setState({ model });
   };
 
+  setItemId = (itemId) => {
+    this.setState({ itemId });
+  };
+
   setItem = (item) => {
     this.setState({ item });
   };
 
-  
-
   componentDidMount() {
-    const { user } = this.context.state;
-    const { setBase } = this.context;
+    const { user, base } = this.context.state;
+    const { setBase, setFiltered } = this.context;
     const { model } = this.props.match.params;
     const { history } = this.props;
 
@@ -63,15 +60,32 @@ class Collection extends Component {
         const { result } = res.data;
         const data = normalizeData(result);
         setBase(data);
+        setFiltered(this.props.filtered);
         this.setModel(model);
       });
     }
   }
+  handleChange = (e) => {
+    let { item, model } = this.state;
 
+    item = { ...item, [e.target.name]: e.target.value };
+    if (model === "transports") {
+      const service_type = document.getElementById("servie_type").value
+      const vehicle_type = document.getElementById("vehicle_type").value
+      item = { ...item, "service_type": service_type, "vehicle_type": vehicle_type }
+    }
+    this.setState({ item });
+  };
+
+  handleImagesChange = (e) => {
+    let { item } = this.state;
+    item = { ...item, [e.target.name]: e.target.value.split(",") };
+    this.setState({ item });
+  };
   componentWillReceiveProps(nextProps) {
     if (nextProps.match.params.model !== this.props.match.params.model) {
-      const { user } = this.context.state;
-      const { setBase } = this.context;
+      const { user, base } = this.context.state;
+      const { setBase, setFiltered } = this.context;
       const { model } = nextProps.match.params;
       const { history } = this.props;
 
@@ -82,6 +96,7 @@ class Collection extends Component {
           const { result } = res.data;
           const data = normalizeData(result);
           setBase(data);
+          setFiltered(this.props.filtered);
           this.setModel(model);
         });
       }
@@ -89,30 +104,48 @@ class Collection extends Component {
   }
 
   render() {
-    const { base, user } = this.context.state;
-    const { model, item } = this.state;
-    const detail = denormalizeData(base).find(x => x._id === item);
-
+    const { base, user, filtered } = this.context.state;
+    const { model, itemId, item } = this.state;
+    const iniFilter = filtered === undefined ? base : filtered;
     return (
       <div>
-        <h1>{this.props.match.params.model.toUpperCase()}</h1>
+        <h1 className="uk-margin-small-top" >{this.props.match.params.model.toUpperCase()}</h1>
+
         <Searchbar />
-        <div className="uk-flex uk-margin-left">
-          <button className="uk-button uk-button-default uk-button-small">
-            <Link className="uk-link-reset" to={`/${model}/new`}>Add new {model.slice(0, -1)}</Link>
+
+        <div className="uk-flex uk-flex-row-reverse uk-margin-xlarge-right">
+          <button
+            className="uk-button uk-button-default"
+            uk-toggle={`target: #${model}-new`}
+            type="button"
+          >
+            Add new {model.slice(0, -1)}
           </button>
         </div>
-        <div className="uk-grid">
-          <div className="uk-margin-small-left uk-margin-small uk-width-1-2">
-            <CardHolder base={base} user={user} model={model} setItem={this.setItem} />
+
+        <CreateModal model={model} title={model.slice(0, -1)} />
+
+
+        <div >
+          <div className="uk-grid uk-grid-small uk-child-width-1-5@l uk-child-width-1-4@m uk-child-width-1-3@s uk-child-width-1-2@xs uk-grid-match uk-flex-center" uk-grid="true">
+            {denormalizeData(iniFilter).map((userItem, index) => (
+              <Card key={index} {...userItem} item={item} user={user} itemId={itemId} userId={user._id} model={model} setItemId={this.setItemId} setItem={this.setItem} base={base} />
+            ))}
           </div>
-          <div className="uk-width-expand">
-            <CardDetail user={user} model={model} {...detail} item={item} setItem={this.setItem} />
-          </div>
+          <DetailModal
+            model={model}
+            user={user}
+            item={item}
+            itemId={itemId}
+            setItemId={this.setItemId}
+            handleChange={this.handleChange}
+            handleImagesChange={this.handleImagesChange}
+          />
         </div>
+
       </div>
     );
   }
 }
-
+// className="uk-panel uk-panel-scrollable max-height"
 export default Collection;

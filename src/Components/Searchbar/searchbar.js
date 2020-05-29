@@ -5,17 +5,6 @@ import { normalizeData, denormalizeData } from "../../utils/dataUtils";
 class Searchbar extends Component {
   static contextType = AppContext;
 
-  // handleChange = (e) => {
-  //   const { base } = this.context.state;
-  //   const { setFilteredBase } = this.context;
-  //   const withFilter = denormalizeData(base).filter((x) =>
-  //     x.name.toLowerCase().includes(e.target.value.toLowerCase())
-  //   );
-  //   const normWithFilter = normalizeData(withFilter)
-  //   e.preventDefault();
-  //   console.log(normWithFilter);
-  //   // setFilteredBase({withFilter});
-  // };
   render() {
     return (
       <div className="uk-margin">

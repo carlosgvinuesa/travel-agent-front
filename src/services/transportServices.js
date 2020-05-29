@@ -14,3 +14,7 @@ export const getTransports = () => {
 export const deleteTransport = (id) => {
   return axios.delete(`${base_url}/transports/${id}`);
 };
+
+export const updateTransport = (params) => {
+  return axios.patch(`${base_url}/transports/${params.id}`, params.data);
+};

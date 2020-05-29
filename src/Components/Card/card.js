@@ -3,13 +3,38 @@ import Slider from "../Common/Slider/slider";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es";
+import DetailModal from "../DetailModal/detailModal";
+import { normalizeData, denormalizeData } from "../../utils/dataUtils";
+
 dayjs.extend(relativeTime);
 
+const currencyFormat = (num = 0) => {
+  let format = /[$]/;
+  if (format.test(num)) {
+    num = num.replace("$", "");
+  }
+  num = parseFloat(num);
+  let str = num.toString().split(".");
+  if (str[0].length >= 4) {
+    str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");
+  }
+  if (str[1] && str[1].length >= 5) {
+    str[1] = str[1].replace(/(\d{3})/g, "$1 ");
+  }
+  let result = str.join(".");
+  result = `$ ${result}`;
+  return result;
+};
+
 class Card extends Component {
+  
   handleClick = (e) => {
-    const { setItem, _id } = this.props;
+    const { setItemId, _id, base, setItem } = this.props;
+    const detail = denormalizeData(base).find(x => x._id === _id);
     e.preventDefault();
-    setItem(_id);
+    setItemId(_id);
+    setItem(detail)
+    console.log("estoy aqui",detail)
   };
 
   render() {
@@ -31,6 +56,12 @@ class Card extends Component {
       initial_date,
       final_date,
       status,
+      user,
+      detail,
+      itemId,
+      item,
+      setItemId,
+      demo = false,
     } = this.props;
 
     const { handleClick } = this;
@@ -46,163 +77,69 @@ class Card extends Component {
         <div
           className="uk-padding-remove uk-margin-small uk-card-body uk-text-top"
           onClick={handleClick}
+          href="#cardDetailModal"
+          uk-toggle="target: #cardDetailModal"
         >
           <h3 className="uk-text-top uk-padding-remove uk-card-title">
             {name} {last_name}
           </h3>
-          <div className="uk-text-top">
-            {(() => {
-              switch (model) {
-                case "userbase":
-                  return (
-                    <div>
-                      <div>
-                        <b>Email:</b> {email}
-                      </div>
-                      <div>
-                        <b>Role:</b> {role}
-                      </div>
-                    </div>
-                  );
-                  break;
-                case "clients":
-                  return (
-                    <div>
-                      <div>
-                        <b>Email:</b> {email}
-                      </div>
-                      <div>
-                        <b>Role:</b> {role}
-                      </div>
-                    </div>
-                  );
-                case "hotels":
-                  return (
-                    <div>
-                      {city === undefined ? null : (
-                        <div className="uk-margin-left uk-margin-small">
-                          <b>City:</b> {city}
-                        </div>
-                      )}
-                      <div className="uk-margin-left uk-margin-small-top">
-                        <b>Types:</b> {types}
-                      </div>
-                      <div className="uk-margin-left uk-margin-small">
-                        <b>Interests:</b> {interests}
-                      </div>
-                      {price < 1 ? null : (
-                        <div className="uk-margin-left uk-margin-small">
-                          <b>Price:</b> {price}
-                        </div>
-                      )}
-                    </div>
-                  );
-                  break;
-                case "restaurants":
-                  return (
-                    <div>
-                      <div className="uk-margin-left uk-margin-small">
-                        <b>City:</b> {city}
-                      </div>
-                      <div className="uk-margin-left uk-margin-small-top">
-                        <b>Types:</b> {types}
-                      </div>
-                      <div className="uk-margin-left uk-margin-small-top">
-                        <b>Food types:</b> {food_types}
-                      </div>
-                      <div className="uk-margin-left uk-margin-small">
-                        <b>Interests:</b> {interests}
-                      </div>
-                      {price < 1 ? null : (
-                        <div className="uk-margin-left uk-margin-small">
-                          <b>Price:</b> {price}
-                        </div>
-                      )}
-                    </div>
-                  );
-                  break;
-                case "experiences":
-                  return (
-                    <div>
-                      {city === undefined ? null : (
-                        <div className="uk-margin-left uk-margin-small">
-                          <b>City:</b> {city}
-                        </div>
-                      )}
-                      <div className="uk-margin-left uk-margin-small-top">
-                        <b>Types:</b> {types}
-                      </div>
-                      <div className="uk-margin-left uk-margin-small">
-                        <b>Interests:</b> {interests}
-                      </div>
-                      {price < 1 ? null : (
-                        <div className="uk-margin-left uk-margin-small">
-                          <b>Price:</b> {price}
-                        </div>
-                      )}
-                    </div>
-                  );
-                  break;
-                case "transports":
-                  return (
-                    <div>
-                      <div>
-                        <b>Service type:</b> {service_type}
-                      </div>
-                      <div>
-                        <b>Transport type:</b> {transport_type}
-                      </div>
-                      {price < 1 ? null : (
-                        <div className="uk-margin-left uk-margin-small">
-                          <b>Price:</b> {price}
-                        </div>
-                      )}
-                    </div>
-                  );
-                  break;
-                case "reservations":
-                  return (
-                    <div>
-                      <div>
-                        <b>Client:</b> {client}
-                      </div>
-                      <div>
-                        From {initial_date} to {final_date}
-                      </div>
-                      <div>
-                        {final_date - initial_date} <b>days</b>
-                      </div>
-                      <div>
-                        <b>Status:</b> {status}
-                      </div>
-                    </div>
-                  );
-                  break;
-              }
-            })()}
-          </div>
-          <div className="uk-card-footer">
-            <a
-              href="#"
-              className="uk-button uk-button-text"
-              onClick={handleClick}
-            >
-              Read more
-            </a>
-          </div>
-        </div>
-        {/* <div className="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid="true">
-          <div className="uk-card-media-left uk-cover-container">
-            <img src="images/light.jpg" alt="" uk-cover />
-            <canvas width="600" height="400"></canvas>
-          </div>
           <div>
-            <div className="uk-card-body">
-              <h3 className="uk-card-title">Media Left</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-            </div>
+            {email === undefined ? null : (
+              <div className="uk-margin-small">
+                <b>Email:</b> {email}
+              </div>
+            )}
+            {role === undefined ? null : (
+              <div className="uk-margin-small">
+                <b>Role:</b> {role}
+              </div>
+            )}
+            {city === undefined ? null : (
+              <div className="uk-margin-small">
+                <b>City:</b> {city}
+              </div>
+            )}
+            {price === undefined || price < 1 ? null : (
+              <div className="uk-margin-small">
+                <b>Price:</b> {price}
+              </div>
+            )}
+            {service_type === undefined ? null : (
+              <div className="uk-margin-small">
+                <b>Service type:</b> {service_type}
+              </div>
+            )}
+            {transport_type === undefined ? null : (
+              <div className="uk-margin-small">
+                <b>Transport type:</b> {transport_type}
+              </div>
+            )}
+            {types === undefined || types.length < 1 ? null : (
+              <div className="uk-margin-small">
+                <b>Types:</b> {types}
+              </div>
+            )}
+            {food_types === undefined || food_types.length < 1 ? null : (
+              <div className="uk-margin-small">
+                <b>Food types:</b> {food_types}
+              </div>
+            )}
+            {interests === undefined || interests.length < 1 ? null : (
+              <div className="uk-margin-small">
+                <b>Interests:</b> {interests}
+              </div>
+            )}
           </div>
-        </div> */}
+
+          {/* <DetailModal
+            model={model}
+            user={user}
+            item={item}
+            itemId={itemId}
+            setItemId={setItemId}
+          /> */}
+
+        </div>
       </div>
     );
   }

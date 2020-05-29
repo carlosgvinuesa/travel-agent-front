@@ -6,6 +6,8 @@ import AppContext from "./AppContext";
 import { withRouter } from "react-router";
 import { logout } from "./services/authServices";
 import { denormalizeData, normalizeData } from "./utils/dataUtils";
+
+
 // import { getProperties } from "./services/propertyServices";
 
 class App extends Component {
@@ -24,21 +26,21 @@ class App extends Component {
   };
 
   setFiltered = (filtered) => {
-    this.setFiltered({ filtered });
+    this.setState({ filtered });
   };
 
   handleChange = (e) => {
-    const { base, filtered } = this.state;
+    e.preventDefault();
+    const { base } = this.state;
     const { setFiltered } = this;
-    // setFiltered(base)
-    // console.log(filtered)
-    // const withFilter = denormalizeData(filtered).filter((x) =>
-    //   x.name.toLowerCase().includes(e.target.value.toLowerCase())
-    // );
-    // const normWithFilter = normalizeData(withFilter)
-    // e.preventDefault();
-    // console.log(normWithFilter);
-    // setFiltered(normWithFilter)
+    const withFilter = []
+    const withNameFilter = denormalizeData(base).filter((x) =>
+      x.name.toLowerCase().includes(e.target.value.toLowerCase()));
+    const withCityFilter = denormalizeData(base).filter((x) =>
+    x.city.toLowerCase().includes(e.target.value.toLowerCase()));
+    withFilter.push(...withNameFilter, ...withCityFilter)
+    const normWithFilter = normalizeData(withFilter)
+    setFiltered(normWithFilter)
   };
 
   logout = () => {
@@ -51,7 +53,7 @@ class App extends Component {
   };
 
   render() {
-    const { state, setUser, logout, base, setBase, handleChange } = this;
+    const { state, setUser, logout, base, setBase, handleChange, setFiltered } = this;
     return (
       <AppContext.Provider
         value={{
@@ -61,6 +63,7 @@ class App extends Component {
           base,
           setBase,
           handleChange,
+          setFiltered
         }}
       >
         <div className="App">
