@@ -33,7 +33,7 @@ class CardDetail extends Component {
     return (
       <div className="uk-card " uk-grid="true">
           <div>
-            <div className="uk-margin-small uk-card-body uk-text-top">
+            <div className="uk-margin-small uk-padding-remove uk-card-body uk-text-top">
               <div>
                 <div className="uk-flex uk-flex-wrap uk-flex-wrap-around">
                   {description === undefined ? null : (
