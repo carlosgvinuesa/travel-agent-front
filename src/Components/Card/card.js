@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es";
 import DetailModal from "../DetailModal/detailModal";
+import { normalizeData, denormalizeData } from "../../utils/dataUtils";
 
 dayjs.extend(relativeTime);
 
@@ -28,9 +29,12 @@ const currencyFormat = (num = 0) => {
 class Card extends Component {
   
   handleClick = (e) => {
-    const { setItem, _id } = this.props;
+    const { setItemId, _id, base, setItem } = this.props;
+    const detail = denormalizeData(base).find(x => x._id === _id);
     e.preventDefault();
-    setItem(_id);
+    setItemId(_id);
+    setItem(detail)
+    console.log("estoy aqui",detail)
   };
 
   render() {
@@ -54,8 +58,9 @@ class Card extends Component {
       status,
       user,
       detail,
+      itemId,
       item,
-      setItem,
+      setItemId,
       demo = false,
     } = this.props;
 
@@ -129,9 +134,9 @@ class Card extends Component {
           <DetailModal
             model={model}
             user={user}
-            detail={detail}
             item={item}
-            setItem={setItem}
+            itemId={itemId}
+            setItemId={setItemId}
           />
 
         </div>

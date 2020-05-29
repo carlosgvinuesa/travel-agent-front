@@ -114,7 +114,6 @@ class CardDetail extends Component {
               <Slider images={images} />
             </div>
           </div>
-        }
       </div>
     );
   }

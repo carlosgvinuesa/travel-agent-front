@@ -6,7 +6,8 @@ import { createHotel } from "../../../services/hotelServices";
 import { createTransport } from "../../../services/transportServices";
 import SharedForm from "../AllForms/sharedForm";
 import TransportForm from "../AllForms/transportForm";
-import Card from "../../Card/card";
+// import Card from "../../Card/card";
+import CardDetail from "../../CardDetail/cardDetail"
 import Slider from "../../Common/Slider/slider";
 import UIkit from "uikit";
 
@@ -85,12 +86,12 @@ class CreateModal extends Component {
                                     )}
                             </div>
                         </div>
-                        <div className="uk-width-1-4">
-                            <Card {...data} model={model} demo="true" />
+                        <div className="uk-width-1-2">
+                            <CardDetail {...data} model={model} demo="true" />
                         </div>
-                        <div className="uk-width-1-4 uk-margin-small-right">
+                        {/* <div className="uk-width-1-4 uk-margin-small-right">
                             <Slider images={data.images ? data.images : []} />
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className="uk-modal-footer uk-text-right">

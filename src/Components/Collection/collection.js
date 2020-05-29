@@ -30,6 +30,7 @@ class Collection extends Component {
 
   state = {
     model: "",
+    itemId: {},
     item: {},
   };
 
@@ -37,11 +38,13 @@ class Collection extends Component {
     this.setState({ model });
   };
 
+  setItemId = (itemId) => {
+    this.setState({ itemId });
+  };
+
   setItem = (item) => {
     this.setState({ item });
   };
-
-
 
   componentDidMount() {
     const { user, base } = this.context.state;
@@ -85,10 +88,8 @@ class Collection extends Component {
 
   render() {
     const { base, user, filtered } = this.context.state;
-    const { model, item } = this.state;
-    const detail = denormalizeData(base).find(x => x._id === item);
+    const { model, itemId, item } = this.state;
     const iniFilter = filtered === undefined ? base : filtered;
-    console.log(`this is the detail ${detail}`)
     return (
       <div>
 
@@ -113,11 +114,11 @@ class Collection extends Component {
 
           <Searchbar  />
 
-        </div>
+        
         <div >
           <div className="uk-grid uk-grid-small uk-child-width-1-5@l uk-child-width-1-4@m uk-child-width-1-3@s uk-child-width-1-2@xs uk-grid-match uk-flex-center" uk-grid="true">
             {denormalizeData(iniFilter).map((userItem, index) => (
-              <Card key={index} {...userItem} detail={detail} user={user} item={item} userId={user._id} model={model} setItem={this.setItem} />
+              <Card key={index} {...userItem} item={item} user={user} itemId={itemId} userId={user._id} model={model} setItemId={this.setItemId} setItem={this.setItem} base={base} />
             ))}
           </div>
         </div>
