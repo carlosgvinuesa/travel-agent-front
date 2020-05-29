@@ -11,7 +11,7 @@ class Home extends Component {
   render() {
     return (<div>
     <div className="title" >
-      Hola
+      Alambic
     </div>
         <Particles height="1500px"
           params={{
