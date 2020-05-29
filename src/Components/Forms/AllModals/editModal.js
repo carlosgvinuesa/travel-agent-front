@@ -4,9 +4,8 @@ import { updateExperience } from "../../../services/experienceServices";
 import { updateRestaurant } from "../../../services/restaurantServices";
 import { updateHotel } from "../../../services/hotelServices";
 import { updateTransport } from "../../../services/transportServices";
-import { denormalizeData } from "../../../utils/dataUtils";
 import SharedForm from "../AllForms/sharedForm";
-import TransportForm from "../TransportForm/transportForm";
+import TransportForm from "../AllForms/transportForm";
 import Card from "../../Card/card";
 import Slider from "../../Common/Slider/slider";
 import UIkit from "uikit";
@@ -19,34 +18,9 @@ const updateServices = {
 }
 
 class EditModal extends Component {
-    static contextType = AppContext;
-   
-
-   //
-
-    // handleChange = (e) => {
-    //     let { data } = this.state;
-    //     let { model } = this.props
-    //     data = { ...data, [e.target.name]: e.target.value };
-    //     if (model === "transports") {
-    //         const service_type = document.getElementById("servie_type").value
-    //         const vehicle_type = document.getElementById("vehicle_type").value
-    //         data = { ...data, "service_type": service_type, "vehicle_type": vehicle_type }
-    //     }
-    //     this.setState({ data });
-    // };
-
-    // handleImagesChange = (e) => {
-    //     let { data } = this.state;
-    //     data = { ...data, [e.target.name]: e.target.value.split(",") };
-    //     this.setState({ data });
-    // };
-
     handleSubmit = () => {
-        
-        const { model, id,data } = this.props;
-        const params = {id, data}
-        console.log("Data:", data)
+        const { model, id, data } = this.props;
+        const params = { id, data }
         updateServices[model](params)
             .then(() => {
                 UIkit.modal(`#${model}-edit`).hide();
@@ -55,13 +29,12 @@ class EditModal extends Component {
     };
 
     render() {
-        
-        const { model, title, id,data,handleChange,handleImagesChange} = this.props;
-        console.log("Edit ID:", data);
 
-        return ( 
+        const { model, title, id, data, handleChange, handleImagesChange } = this.props;
+
+        return (
             <div id={`${model}-edit`} className="uk-modal-container" uk-modal="true">
-              
+
                 <div className="uk-modal-dialog">
                     <button className="uk-modal-close-default" type="button" uk-close="true"></button>
 
@@ -99,7 +72,7 @@ class EditModal extends Component {
 
                     <div className="uk-modal-footer uk-text-right">
                         <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                        <button className="uk-button uk-button-primary" type="button" onClick={()=>this.handleSubmit()}>Save</button>
+                        <button className="uk-button uk-button-primary" type="button" onClick={() => this.handleSubmit()}>Save</button>
                     </div>
 
                 </div>

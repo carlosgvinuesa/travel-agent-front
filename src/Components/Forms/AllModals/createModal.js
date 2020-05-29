@@ -4,11 +4,10 @@ import { createExperience } from "../../../services/experienceServices";
 import { createRestaurant } from "../../../services/restaurantServices";
 import { createHotel } from "../../../services/hotelServices";
 import { createTransport } from "../../../services/transportServices";
+import Slider from "../../Common/Slider/slider";
 import SharedForm from "../AllForms/sharedForm";
 import TransportForm from "../AllForms/transportForm";
-// import Card from "../../Card/card";
 import CardDetail from "../../CardDetail/cardDetail"
-import Slider from "../../Common/Slider/slider";
 import UIkit from "uikit";
 
 const createServices = {
@@ -89,9 +88,9 @@ class CreateModal extends Component {
                         <div className="uk-width-1-2">
                             <CardDetail {...data} model={model} demo="true" />
                         </div>
-                        {/* <div className="uk-width-1-4 uk-margin-small-right">
+                        <div className="uk-width-1-4 uk-margin-small-right uk-margin-medium-top">
                             <Slider images={data.images ? data.images : []} />
-                        </div> */}
+                        </div>
                     </div>
 
                     <div className="uk-modal-footer uk-text-right">

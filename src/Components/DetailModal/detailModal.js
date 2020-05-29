@@ -32,8 +32,6 @@ class DetailModal extends Component {
     setItemId({});
   };
 
-
-
   render() {
     const { model, user, item, itemId,handleChange,handleImagesChange } = this.props;
     
