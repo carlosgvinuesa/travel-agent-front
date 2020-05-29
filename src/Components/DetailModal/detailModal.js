@@ -29,14 +29,12 @@ class DetailModal extends Component {
     const { model, item, setItem } = this.props;
     deleteServices[model](item);
     setItem({});
-    console.log(`boton de borrar ${item}`);
   };
 
   render() {
-    const { name, last_name, model, user, detail, item } = this.props;
+    const { model, user, detail, item } = this.props;
     console.log("Detail modal ID:", item);
     console.log("Model:", model);
-
     return (
       <div id="cardDetailModal" uk-modal="true">
         <div className="uk-modal-dialog uk-width-1-2">
@@ -47,8 +45,8 @@ class DetailModal extends Component {
           ></button>
           <div className="uk-modal-header">
             <h2 className="uk-modal-title">
-              {name}
-              {last_name}
+              {detail !== undefined? detail.name: ""}
+              {detail !== undefined? detail.last_name: ""}
             </h2>
           </div>
           <div className="uk-modal-body" uk-overflow-auto="true">
@@ -58,7 +56,6 @@ class DetailModal extends Component {
           </div>
           <div
             className="uk-modal-footer uk-text-right"
-            uk-sticky="stack: true"
           >
             <div>
               <button
@@ -76,7 +73,7 @@ class DetailModal extends Component {
               >
                 DELETE
               </button>
-              <div id="delWarning" uk-modal="true" uk-stack="true">
+              <div id="delWarning" uk-modal="true">
                 <div className="uk-modal-dialog uk-modal-body">
                   <h2 className="uk-modal-title">Warning!</h2>
                   <p>

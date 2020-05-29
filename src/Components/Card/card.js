@@ -3,8 +3,8 @@ import Slider from "../Common/Slider/slider";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es";
-// import CardDetail from "../CardDetail/cardDetail";
-import DetailModal from "../DetailModal/detailModal"
+import DetailModal from "../DetailModal/detailModal";
+
 dayjs.extend(relativeTime);
 
 const currencyFormat = (num = 0) => {
@@ -26,13 +26,7 @@ const currencyFormat = (num = 0) => {
 };
 
 class Card extends Component {
-  componentWillReceiveProps(nextProps) {
-    if (nextProps._id !== this.props._id) {
-      const { setItem, _id } = nextProps;
-      setItem(_id);
-    }
-  }
-
+  
   handleClick = (e) => {
     const { setItem, _id } = this.props;
     e.preventDefault();
@@ -66,7 +60,6 @@ class Card extends Component {
     } = this.props;
 
     const { handleClick } = this;
-    console.log(detail);
 
     return (
       <div
@@ -85,141 +78,62 @@ class Card extends Component {
           <h3 className="uk-text-top uk-padding-remove uk-card-title">
             {name} {last_name}
           </h3>
-          <div className="uk-text-top">
-            {(() => {
-              switch (model) {
-                case "userbase":
-                  return (
-                    <div>
-                      <div>
-                        <b>Email:</b> {email}
-                      </div>
-                      <div>
-                        <b>Role:</b> {role}
-                      </div>
-                    </div>
-                  );
-                  break;
-                case "clients":
-                  return (
-                    <div>
-                      <div>
-                        <b>Email:</b> {email}
-                      </div>
-                      <div>
-                        <b>Role:</b> {role}
-                      </div>
-                    </div>
-                  );
-                case "hotels":
-                  return (
-                    <div>
-                      {city === undefined ? null : (
-                        <div className="uk-margin-left uk-margin-small">
-                          <b>City:</b> {city}
-                        </div>
-                      )}
-                      <div className="uk-margin-left uk-margin-small-top">
-                        <b>Types:</b> {types}
-                      </div>
-                      <div className="uk-margin-left uk-margin-small">
-                        <b>Interests:</b> {interests}
-                      </div>
-                      {price < 1 ? null : (
-                        <div className="uk-margin-left uk-margin-small">
-                          <b>Price:</b> {currencyFormat(price)}
-                        </div>
-                      )}
-                    </div>
-                  );
-                  break;
-                case "restaurants":
-                  return (
-                    <div>
-                      <div className="uk-margin-left uk-margin-small">
-                        <b>City:</b> {city}
-                      </div>
-                      <div className="uk-margin-left uk-margin-small-top">
-                        <b>Types:</b> {types}
-                      </div>
-                      <div className="uk-margin-left uk-margin-small-top">
-                        <b>Food types:</b> {food_types}
-                      </div>
-                      <div className="uk-margin-left uk-margin-small">
-                        <b>Interests:</b> {interests}
-                      </div>
-                      {price < 1 ? null : (
-                        <div className="uk-margin-left uk-margin-small">
-                          <b>Price:</b> {currencyFormat(price)}
-                        </div>
-                      )}
-                    </div>
-                  );
-                  break;
-                case "experiences":
-                  return (
-                    <div>
-                      {city === undefined ? null : (
-                        <div className="uk-margin-left uk-margin-small">
-                          <b>City:</b> {city}
-                        </div>
-                      )}
-                      <div className="uk-margin-left uk-margin-small-top">
-                        <b>Types:</b> {types}
-                      </div>
-                      <div className="uk-margin-left uk-margin-small">
-                        <b>Interests:</b> {interests}
-                      </div>
-                      {price < 1 ? null : (
-                        <div className="uk-margin-left uk-margin-small">
-                          <b>Price:</b> {currencyFormat(price)}
-                        </div>
-                      )}
-                    </div>
-                  );
-                  break;
-                case "transports":
-                  return (
-                    <div>
-                      <div>
-                        <b>Service type:</b> {service_type}
-                      </div>
-                      <div>
-                        <b>Transport type:</b> {transport_type}
-                      </div>
-                      {price < 1 ? null : (
-                        <div className="uk-margin-left uk-margin-small">
-                          <b>Price:</b> {currencyFormat(price)}
-                        </div>
-                      )}
-                    </div>
-                  );
-                  break;
-                case "reservations":
-                  return (
-                    <div>
-                      <div>
-                        <b>Client:</b> {client}
-                      </div>
-                      <div>
-                        From {initial_date} to {final_date}
-                      </div>
-                      <div>
-                        {final_date - initial_date} <b>days</b>
-                      </div>
-                      <div>
-                        <b>Status:</b> {status}
-                      </div>
-                    </div>
-                  );
-                  break;
-              }
-            })()}
+          <div>
+            {email === undefined ? null : (
+              <div className="uk-margin-small">
+                <b>Email:</b> {email}
+              </div>
+            )}
+            {role === undefined ? null : (
+              <div className="uk-margin-small">
+                <b>Role:</b> {role}
+              </div>
+            )}
+            {city === undefined ? null : (
+              <div className="uk-margin-small">
+                <b>City:</b> {city}
+              </div>
+            )}
+            {price === undefined || price < 1 ? null : (
+              <div className="uk-margin-small">
+                <b>Price:</b> {price}
+              </div>
+            )}
+            {service_type === undefined ? null : (
+              <div className="uk-margin-small">
+                <b>Service type:</b> {service_type}
+              </div>
+            )}
+            {transport_type === undefined ? null : (
+              <div className="uk-margin-small">
+                <b>Transport type:</b> {transport_type}
+              </div>
+            )}
+            {types === undefined || types.length < 1 ? null : (
+              <div className="uk-margin-small">
+                <b>Types:</b> {types}
+              </div>
+            )}
+            {food_types === undefined || food_types.length < 1 ? null : (
+              <div className="uk-margin-small">
+                <b>Food types:</b> {food_types}
+              </div>
+            )}
+            {interests === undefined || interests.length < 1 ? null : (
+              <div className="uk-margin-small">
+                <b>Interests:</b> {interests}
+              </div>
+            )}
           </div>
-          {demo ? null : (
-            <DetailModal name={name} last_name={last_name} model={model} user={user} detail={detail} item={item} setItem={setItem} />
-          )}
-          
+
+          <DetailModal
+            model={model}
+            user={user}
+            detail={detail}
+            item={item}
+            setItem={setItem}
+          />
+
         </div>
       </div>
     );
