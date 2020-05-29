@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import Slider from "../Common/Slider/slider";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es";
 dayjs.extend(relativeTime);
 
-class CardDetail extends Component {
+class ItemContent extends Component {
   render() {
     const {
       images = [],
@@ -28,19 +27,24 @@ class CardDetail extends Component {
       initial_date,
       final_date,
       status,
-      demo = false,
     } = this.props;
 
     return (
       <div className="uk-card " uk-grid="true">
-
         <div>
-          <div className="uk-margin-small uk-card-body uk-text-top">
+          <div className="uk-margin-small uk-padding-remove uk-card-body uk-text-top">
             <div>
-              {demo ? (
-                <h1>{name}</h1>
-              ) : null}
               <div className="uk-flex uk-flex-wrap uk-flex-wrap-around">
+                {name === undefined ? null : (
+                  <div className="uk-margin-left uk-margin">
+                    <b>Name:</b> {name}
+                  </div>
+                )}
+                {last_name === undefined ? null : (
+                  <div className="uk-margin-left uk-margin">
+                    <b>Last Name:</b> {last_name}
+                  </div>
+                )}
                 {description === undefined ? null : (
                   <div className="uk-margin-left uk-margin">
                     <b>Description:</b> {description}
@@ -102,11 +106,11 @@ class CardDetail extends Component {
                   </div>
                 )}
                 {phone_numbers === undefined ||
-                  phone_numbers.length < 1 ? null : (
-                    <div className="uk-margin-left uk-margin-small">
-                      <b>Phone:</b> {phone_numbers}
-                    </div>
-                  )}
+                phone_numbers.length < 1 ? null : (
+                  <div className="uk-margin-left uk-margin-small">
+                    <b>Phone:</b> {phone_numbers}
+                  </div>
+                )}
                 {contacts === undefined || contacts.length < 1 ? null : (
                   <div className="uk-margin-left uk-margin-small">
                     <b>Contacts:</b> {contacts}
@@ -115,15 +119,10 @@ class CardDetail extends Component {
               </div>
             </div>
           </div>
-          {demo ? null : (
-            <div className="uk-padding-remove uk-cover-container uk-margin">
-              <Slider images={images} />
-            </div>
-          )}
         </div>
       </div>
     );
   }
 }
 
-export default CardDetail;
+export default ItemContent;

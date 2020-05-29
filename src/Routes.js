@@ -4,12 +4,14 @@ import AuthForm from "./Components/AuthForm/authForm";
 import Collection from "./Components/Collection/collection"
 import Reservation from "./Components/Collection/reservation";
 import ReservationForm from "./Components/Forms/AllForms/reservationForm";
+import Home from "./Components/Home/home"
 
 
 
 
 const Routes = () => (
   <Switch>
+    <Route exact path="/" component={Home} />
     <Route exact path="/login" component={AuthForm} />
     <Route exact path="/signup" component={AuthForm} />
     <Route exact path="/reservations" component={Reservation}/>
