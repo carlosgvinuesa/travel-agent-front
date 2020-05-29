@@ -25,15 +25,18 @@ const deleteServices = {
 };
 
 class DetailModal extends Component {
-  deleteItem = () => {
+
+    deleteItem = () => {
     const { model, itemId, setItemId } = this.props;
     deleteServices[model](itemId);
     setItemId({});
   };
 
-  render() {
-    const { model, user, item, itemId } = this.props;
 
+
+  render() {
+    const { model, user, item, itemId,handleChange,handleImagesChange } = this.props;
+    
     return (
       <div id="cardDetailModal" uk-modal="true">
         <div className="uk-modal-dialog uk-width-1-2">
@@ -44,27 +47,34 @@ class DetailModal extends Component {
           ></button>
           <div className="uk-modal-header">
             <h2 className="uk-modal-title">
-              {item !== undefined? item.name: ""}
-              {item !== undefined? item.last_name: ""}
+              {item !== undefined ? item.name : ""}
+              {item !== undefined ? item.last_name : ""}
             </h2>
           </div>
           <div className="uk-modal-body" uk-overflow-auto="true">
             <div>
               <CardDetail user={user} model={model} {...item} item={itemId} />
+              <EditModal
+                model={model}
+                title={model.slice(0, -1)}
+                id={itemId}
+                {...item}
+                data={item}
+                handleImagesChange={handleImagesChange}
+                handleChange ={handleChange}
+              />
             </div>
           </div>
-          <div
-            className="uk-modal-footer uk-text-right"
-          >
+          <div className="uk-modal-footer uk-text-right">
             <div>
               <button
                 className="uk-button uk-button-default uk-button-small uk-width-small"
                 uk-toggle={`target: #${model}-edit`}
+                //onClick={() => this.setState({ isEdit: true })}
                 type="button"
-              >EDIT
+              >
+                EDIT
               </button>
-
-              {/* <EditModal model={model} title={model.slice(0, -1)} id={itemId} {...item} item={item} /> */}
 
               <button
                 className="uk-button uk-button-danger uk-button-small uk-width-small"
