@@ -34,9 +34,6 @@ class CardDetail extends Component {
       <div className="uk-card " uk-grid="true">
           <div>
             <div className="uk-margin-small uk-card-body uk-text-top">
-              <h3 className="uk-text-top uk-card-title">
-                {name} {last_name}
-              </h3>
               <div>
                 <div className="uk-flex uk-flex-wrap uk-flex-wrap-around">
                   {description === undefined ? null : (
@@ -45,12 +42,12 @@ class CardDetail extends Component {
                     </div>
                   )}
                   {email === undefined ? null : (
-                    <div>
+                    <div className="uk-margin-left uk-margin">
                       <b>Email:</b> {email}
                     </div>
                   )}
                   {role === undefined ? null : (
-                    <div>
+                    <div className="uk-margin-left uk-margin">
                       <b>Role:</b> {role}
                     </div>
                   )}
@@ -65,12 +62,12 @@ class CardDetail extends Component {
                     </div>
                   )}
                   {service_type === undefined ? null : (
-                    <div>
+                    <div className="uk-margin-left uk-margin">
                       <b>Service type:</b> {service_type}
                     </div>
                   )}
                   {transport_type === undefined ? null : (
-                    <div>
+                    <div className="uk-margin-left uk-margin">
                       <b>Transport type:</b> {transport_type}
                     </div>
                   )}
