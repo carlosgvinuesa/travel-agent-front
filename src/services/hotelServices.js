@@ -15,3 +15,7 @@ export const getHotels = () => {
 export const deleteHotel = (id) => {
   return axios.delete(`${base_url}/hotels/${id}`);
 };
+
+export const updateHotel = (id) => {
+  return axios.patch(`${base_url}/hotels/${id}`);
+};

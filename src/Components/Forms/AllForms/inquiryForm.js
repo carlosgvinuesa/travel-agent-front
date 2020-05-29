@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import InputField from "../../Common/InputField/inputField";
 import TextAreaField from "../../Common/TextAreaField/textAreaField";
 
-class RestaurantForm extends Component {
+class InquiryForm extends Component {
     state = {
         inquiry: {}
     };
@@ -86,4 +86,4 @@ class RestaurantForm extends Component {
     }
 }
 
-export default RestaurantForm;
+export default InquiryForm;

@@ -3,9 +3,27 @@ import Slider from "../Common/Slider/slider";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es";
-import CardDetail from "../CardDetail/cardDetail";
+// import CardDetail from "../CardDetail/cardDetail";
 import DetailModal from "../DetailModal/detailModal"
 dayjs.extend(relativeTime);
+
+const currencyFormat = (num = 0) => {
+  let format = /[$]/;
+  if (format.test(num)) {
+    num = num.replace("$", "");
+  }
+  num = parseFloat(num);
+  let str = num.toString().split(".");
+  if (str[0].length >= 4) {
+    str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");
+  }
+  if (str[1] && str[1].length >= 5) {
+    str[1] = str[1].replace(/(\d{3})/g, "$1 ");
+  }
+  let result = str.join(".");
+  result = `$ ${result}`;
+  return result;
+};
 
 class Card extends Component {
   componentWillReceiveProps(nextProps) {
@@ -44,6 +62,7 @@ class Card extends Component {
       detail,
       item,
       setItem,
+      demo = false,
     } = this.props;
 
     const { handleClick } = this;
@@ -108,7 +127,7 @@ class Card extends Component {
                       </div>
                       {price < 1 ? null : (
                         <div className="uk-margin-left uk-margin-small">
-                          <b>Price:</b> {price}
+                          <b>Price:</b> {currencyFormat(price)}
                         </div>
                       )}
                     </div>
@@ -131,7 +150,7 @@ class Card extends Component {
                       </div>
                       {price < 1 ? null : (
                         <div className="uk-margin-left uk-margin-small">
-                          <b>Price:</b> {price}
+                          <b>Price:</b> {currencyFormat(price)}
                         </div>
                       )}
                     </div>
@@ -153,7 +172,7 @@ class Card extends Component {
                       </div>
                       {price < 1 ? null : (
                         <div className="uk-margin-left uk-margin-small">
-                          <b>Price:</b> {price}
+                          <b>Price:</b> {currencyFormat(price)}
                         </div>
                       )}
                     </div>
@@ -170,7 +189,7 @@ class Card extends Component {
                       </div>
                       {price < 1 ? null : (
                         <div className="uk-margin-left uk-margin-small">
-                          <b>Price:</b> {price}
+                          <b>Price:</b> {currencyFormat(price)}
                         </div>
                       )}
                     </div>
@@ -197,7 +216,10 @@ class Card extends Component {
               }
             })()}
           </div>
-          <DetailModal  name={name} last_name={last_name} model={model} user={user} detail={detail} item={item} setItem={setItem}/>
+          {demo ? null : (
+            <DetailModal name={name} last_name={last_name} model={model} user={user} detail={detail} item={item} setItem={setItem} />
+          )}
+          
         </div>
       </div>
     );
