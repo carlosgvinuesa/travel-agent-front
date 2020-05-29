@@ -91,13 +91,6 @@ class Collection extends Component {
     console.log(`this is the detail ${detail}`)
     return (
       <div>
-
-        {/* <div className="uk-flex uk-margin-left uk-margin-small-top">
-          <button className="uk-button uk-button-default uk-button-small">
-            <Link className="uk-link-reset" to={`/${model}/new`}>Add new {model.slice(0, -1)}</Link>
-          </button>
-        </div> */}
-
         <button
           className="uk-flex uk-margin-left uk-button uk-button-default"
           uk-toggle={`target: #${model}-new`}
@@ -113,7 +106,6 @@ class Collection extends Component {
 
           <Searchbar  />
 
-        </div>
         <div >
           <div className="uk-grid uk-grid-small uk-child-width-1-5@l uk-child-width-1-4@m uk-child-width-1-3@s uk-child-width-1-2@xs uk-grid-match uk-flex-center" uk-grid="true">
             {denormalizeData(iniFilter).map((userItem, index) => (

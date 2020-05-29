@@ -66,7 +66,7 @@ class CreateModal extends Component {
                     </div>
 
                     <div className="uk-flex uk-width-1-1">
-                        <div className="uk-modal-body uk-width-1-2" uk-overflow-auto="true">
+                        <div className="uk-modal-body uk-width-1-2 uk-height-1-1" uk-overflow-auto="true">
                             <div>
                                 {model === "transports" ? (
                                     <TransportForm
