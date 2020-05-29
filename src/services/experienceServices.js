@@ -15,3 +15,7 @@ export const getExperiences = () => {
 export const deleteExperience = (id) => {
   return axios.delete(`${base_url}/experiences/${id}`);
 };
+
+export const updateExperience = (params) => {
+  return axios.patch(`${base_url}/experiences/${params.id}`, params.data);
+};

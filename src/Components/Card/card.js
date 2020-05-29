@@ -4,7 +4,26 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es";
 import DetailModal from "../DetailModal/detailModal";
+
 dayjs.extend(relativeTime);
+
+const currencyFormat = (num = 0) => {
+  let format = /[$]/;
+  if (format.test(num)) {
+    num = num.replace("$", "");
+  }
+  num = parseFloat(num);
+  let str = num.toString().split(".");
+  if (str[0].length >= 4) {
+    str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");
+  }
+  if (str[1] && str[1].length >= 5) {
+    str[1] = str[1].replace(/(\d{3})/g, "$1 ");
+  }
+  let result = str.join(".");
+  result = `$ ${result}`;
+  return result;
+};
 
 class Card extends Component {
   
@@ -37,6 +56,7 @@ class Card extends Component {
       detail,
       item,
       setItem,
+      demo = false,
     } = this.props;
 
     const { handleClick } = this;
@@ -113,6 +133,7 @@ class Card extends Component {
             item={item}
             setItem={setItem}
           />
+
         </div>
       </div>
     );

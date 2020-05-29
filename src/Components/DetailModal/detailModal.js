@@ -5,6 +5,7 @@ import { deleteClient } from "../../services/clientServices";
 import { deleteExperience } from "../../services/experienceServices";
 import { deleteTransport } from "../../services/transportServices";
 import { deleteReservation } from "../../services/reservationServices";
+import EditModal from "../Forms/AllModals/editModal";
 import React, { Component } from "react";
 import Slider from "../Common/Slider/slider";
 import dayjs from "dayjs";
@@ -32,6 +33,8 @@ class DetailModal extends Component {
 
   render() {
     const { model, user, detail, item } = this.props;
+    console.log("Detail modal ID:", item);
+    console.log("Model:", model);
     return (
       <div id="cardDetailModal" uk-modal="true">
         <div className="uk-modal-dialog uk-width-1-2">
@@ -55,9 +58,15 @@ class DetailModal extends Component {
             className="uk-modal-footer uk-text-right"
           >
             <div>
-              <button className="uk-button uk-button-default uk-button-small uk-width-small">
-                EDIT
+              <button
+                className="uk-button uk-button-default uk-button-small uk-width-small"
+                uk-toggle={`target: #${model}-edit`}
+                type="button"
+              >EDIT
               </button>
+
+              {/* <EditModal model={model} title={model.slice(0, -1)} id={item} {...detail} /> */}
+
               <button
                 className="uk-button uk-button-danger uk-button-small uk-width-small"
                 uk-toggle="target: #delWarning"

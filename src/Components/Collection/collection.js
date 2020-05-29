@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Searchbar from "../Searchbar/searchbar";
 import Card from "../Card/card"
 import AppContext from "../../AppContext";
+import CreateModal from "../Forms/AllModals/createModal";
 import { Link } from "react-router-dom";
 import "./collection.css"
 import { normalizeData, denormalizeData } from "../../utils/dataUtils";
@@ -40,7 +41,7 @@ class Collection extends Component {
     this.setState({ item });
   };
 
-  
+
 
   componentDidMount() {
     const { user, base } = this.context.state;
@@ -90,12 +91,23 @@ class Collection extends Component {
     console.log(`this is the detail ${detail}`)
     return (
       <div>
-        <div>
-          <div className="uk-flex uk-margin-left uk-margin-small-top">
-            <button className="uk-button uk-button-default uk-button-small">
-             <Link className="uk-link-reset" to={`/${model}/new`}>Add new {model.slice(0, -1)}</Link>
-            </button>
-          </div>
+
+        {/* <div className="uk-flex uk-margin-left uk-margin-small-top">
+          <button className="uk-button uk-button-default uk-button-small">
+            <Link className="uk-link-reset" to={`/${model}/new`}>Add new {model.slice(0, -1)}</Link>
+          </button>
+        </div> */}
+
+        <button
+          className="uk-flex uk-margin-left uk-button uk-button-default"
+          uk-toggle={`target: #${model}-new`}
+          type="button"
+        >
+          Add new {model.slice(0, -1)}
+        </button>
+
+        <CreateModal model={model} title={model.slice(0, -1)} />
+
 
           <h1 className="uk-margin-small-top" >{this.props.match.params.model.toUpperCase()}</h1>
 
@@ -105,7 +117,7 @@ class Collection extends Component {
         <div >
           <div className="uk-grid uk-grid-small uk-child-width-1-5@l uk-child-width-1-4@m uk-child-width-1-3@s uk-child-width-1-2@xs uk-grid-match uk-flex-center" uk-grid="true">
             {denormalizeData(iniFilter).map((userItem, index) => (
-              <Card key={index} {...userItem} detail={detail} user={user} item={item} userId={user._id} model={model} setItem={this.setItem}/>
+              <Card key={index} {...userItem} detail={detail} user={user} item={item} userId={user._id} model={model} setItem={this.setItem} />
             ))}
           </div>
         </div>
