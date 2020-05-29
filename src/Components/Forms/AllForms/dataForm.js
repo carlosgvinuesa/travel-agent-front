@@ -42,12 +42,8 @@ class DataForm extends Component {
 
     getPrice = () => {
         const { model } = this.props;
-        console.log("Daily model:", model);
         let { data, price } = this.state;
-        console.log("State data:", data);
-        console.log("State price:", price);
         const name = document.getElementById(model).value;
-        console.log("Value name:", name);
         let item = data.filter(item => item.name === name);
         price = item[0].price;
         this.setState({ price: price })
@@ -56,7 +52,7 @@ class DataForm extends Component {
     render() {
         const { data, price } = this.state;
         const { getPrice } = this;
-        const { model, handlePrice } = this.props;
+        const { model } = this.props;
 
         return (
             <div className="uk-flex-inline uk-width-1-1">
@@ -75,10 +71,10 @@ class DataForm extends Component {
                     <label className="uk-form-label uk-text-capitalize uk-margin-small-left">Price:</label>
                     <input
                         className="uk-input uk-text-right"
+                        id={`${model}_price`}
                         type="number"
                         name="price"
                         value={price}
-                        onChange={handlePrice}
                     />
                 </div>
             </div>

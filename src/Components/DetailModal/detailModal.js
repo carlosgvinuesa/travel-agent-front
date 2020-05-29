@@ -26,15 +26,16 @@ const deleteServices = {
 
 class DetailModal extends Component {
   deleteItem = () => {
-    const { model, item, setItem } = this.props;
-    deleteServices[model](item);
-    setItem({});
+    const { model, itemId, setItemId } = this.props;
+    deleteServices[model](itemId);
+    setItemId({});
   };
 
   render() {
-    const { model, user, detail, item } = this.props;
-    console.log("Detail modal ID:", item);
-    console.log("Model:", model);
+    const { model, user, item, itemId } = this.props;
+    console.log("object:", item);
+    console.log("id:", itemId);
+
     return (
       <div id="cardDetailModal" uk-modal="true">
         <div className="uk-modal-dialog uk-width-1-2">
@@ -45,13 +46,13 @@ class DetailModal extends Component {
           ></button>
           <div className="uk-modal-header">
             <h2 className="uk-modal-title">
-              {detail !== undefined? detail.name: ""}
-              {detail !== undefined? detail.last_name: ""}
+              {item !== undefined ? item.name : ""}
+              {item !== undefined ? item.last_name : ""}
             </h2>
           </div>
           <div className="uk-modal-body" uk-overflow-auto="true">
             <div>
-              <CardDetail user={user} model={model} {...detail} item={item} />
+              <CardDetail user={user} model={model} {...item} item={itemId} />
             </div>
           </div>
           <div
@@ -65,7 +66,7 @@ class DetailModal extends Component {
               >EDIT
               </button>
 
-              {/* <EditModal model={model} title={model.slice(0, -1)} id={item} {...detail} /> */}
+              {/* <EditModal model={model} title={model.slice(0, -1)} id={itemId} {...item} item={item} /> */}
 
               <button
                 className="uk-button uk-button-danger uk-button-small uk-width-small"

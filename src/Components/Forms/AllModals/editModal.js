@@ -6,7 +6,7 @@ import { updateHotel } from "../../../services/hotelServices";
 import { updateTransport } from "../../../services/transportServices";
 import { denormalizeData } from "../../../utils/dataUtils";
 import SharedForm from "../AllForms/sharedForm";
-import TransportForm from "../TransportForm/transportForm";
+import TransportForm from "../AllForms/transportForm";
 import Card from "../../Card/card";
 import Slider from "../../Common/Slider/slider";
 import UIkit from "uikit";
@@ -64,7 +64,7 @@ class EditModal extends Component {
     render() {
         const { data } = this.state;
         const { model, title, id} = this.props;
-        console.log("Edit ID:", id);
+        console.log("Edit ID:", this.props);
 
         return ( 
             <div id={`${model}-edit`} className="uk-modal-container" uk-modal="true">
