@@ -15,3 +15,8 @@ export const getRestaurants = () => {
 export const deleteRestaurant = (id) => {
   return axios.delete(`${base_url}/restaurants/${id}`);
 };
+
+export const updateRestaurant  = (params) => {
+  return axios.patch(`${base_url}/restaurants/${params.id}`, params.data);
+};
+

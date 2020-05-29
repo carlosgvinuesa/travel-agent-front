@@ -5,6 +5,7 @@ import { deleteClient } from "../../services/clientServices";
 import { deleteExperience } from "../../services/experienceServices";
 import { deleteTransport } from "../../services/transportServices";
 import { deleteReservation } from "../../services/reservationServices";
+import EditModal from "../Forms/AllModals/editModal";
 import React, { Component } from "react";
 import Slider from "../Common/Slider/slider";
 import dayjs from "dayjs";
@@ -24,14 +25,16 @@ const deleteServices = {
 };
 
 class DetailModal extends Component {
-  deleteItem = () => {
-    const { model, item, setItem } = this.props;
-    deleteServices[model](item);
-    setItem({});
+
+    deleteItem = () => {
+    const { model, itemId, setItemId } = this.props;
+    deleteServices[model](itemId);
+    setItemId({});
   };
 
   render() {
-    const { model, user, detail, item } = this.props;
+    const { model, user, item, itemId,handleChange,handleImagesChange } = this.props;
+    
     return (
       <div id="cardDetailModal" uk-modal="true">
         <div className="uk-modal-dialog uk-width-1-2">
@@ -42,22 +45,35 @@ class DetailModal extends Component {
           ></button>
           <div className="uk-modal-header">
             <h2 className="uk-modal-title">
-              {detail !== undefined? detail.name: ""}
-              {detail !== undefined? detail.last_name: ""}
+              {item !== undefined ? item.name : ""}
+              {item !== undefined ? item.last_name : ""}
             </h2>
           </div>
           <div className="uk-modal-body" uk-overflow-auto="true">
             <div>
-              <CardDetail user={user} model={model} {...detail} item={item} />
+              <CardDetail user={user} model={model} {...item} item={itemId} />
+              <EditModal
+                model={model}
+                title={model.slice(0, -1)}
+                id={itemId}
+                {...item}
+                data={item}
+                handleImagesChange={handleImagesChange}
+                handleChange ={handleChange}
+              />
             </div>
           </div>
-          <div
-            className="uk-modal-footer uk-text-right"
-          >
+          <div className="uk-modal-footer uk-text-right">
             <div>
-              <button className="uk-button uk-button-default uk-button-small uk-width-small">
+              <button
+                className="uk-button uk-button-default uk-button-small uk-width-small"
+                uk-toggle={`target: #${model}-edit`}
+                //onClick={() => this.setState({ isEdit: true })}
+                type="button"
+              >
                 EDIT
               </button>
+
               <button
                 className="uk-button uk-button-danger uk-button-small uk-width-small"
                 uk-toggle="target: #delWarning"
