@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Slider from "../Common/Slider/slider";
+import AppContext from "../../AppContext";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es";
@@ -26,7 +27,8 @@ const currencyFormat = (num = 0) => {
   return result;
 };
 
-class Card extends Component {
+class ReservationCard extends Component {
+  static contextType = AppContext;
   
   handleClick = (e) => {
     const { setItemId, _id, base, setItem } = this.props;
@@ -34,70 +36,51 @@ class Card extends Component {
     e.preventDefault();
     setItemId(_id);
     setItem(item)
-    console.log("estoy aqui", item)
+    console.log(" de reservation estoy aqui", item)
   };
 
   render() {
     const {
-      images = [],
       name,
-      last_name,
-      email,
-      role,
-      model,
-      city,
-      types,
-      food_types,
       interests,
       price,
-      service_type,
-      transport_type,
-      client,
       schedule,
       initial_date,
       final_date,
       status,
-      user,
-      detail,
-      itemId,
-      item,
-      setItemId,
-      demo = false,
+      number_of_guests,
+      cities,
     } = this.props;
 
     const { handleClick } = this;
-
+    const experiencesBase = denormalizeData(this.context.state.experiencesBase);
+    
     return (
       <div
         className="uk-margin-small-left uk-margin-small-top uk-padding-remove uk-card uk-card-small uk-card-hover"
         uk-grid="true"
       >
         <div className="uk-padding-remove uk-cover-container uk-card-media-left">
-          <Slider images={images} />
+          <Slider images={schedule !== undefined ? experiencesBase.find(x => x.name === schedule[0].experience).images : ""} />
         </div>
         <div
           className="uk-padding-remove uk-margin-small uk-card-body uk-text-top"
           onClick={handleClick}
-          href="#cardDetailModal"
-          uk-toggle="target: #cardDetailModal"
+          href="#reservationModal"
+          uk-toggle="target: #reservationModal"
         >
           <h3 className="uk-text-top uk-padding-remove uk-card-title">
-            {name} {last_name}
+            {name}
           </h3>
           <div>
-            {email === undefined ? null : (
+            {status === undefined ? null : (
               <div className="uk-margin-small">
-                <b>Email:</b> {email}
+                <b>From:</b> {dayjs(initial_date).format('DD/MMM/YYYY')} <b>To:</b> {dayjs(final_date).format('DD/MMM/YYYY')}
               </div>
             )}
-            {role === undefined ? null : (
+            {cities === undefined ? null : (
               <div className="uk-margin-small">
-                <b>Role:</b> {role}
-              </div>
-            )}
-            {city === undefined ? null : (
-              <div className="uk-margin-small">
-                <b>City:</b> {city}
+                <b>City:</b> {cities}
               </div>
             )}
             {price === undefined || price < 1 ? null : (
@@ -105,40 +88,17 @@ class Card extends Component {
                 <b>Price:</b> {price}
               </div>
             )}
-            {service_type === undefined ? null : (
-              <div className="uk-margin-small">
-                <b>Service type:</b> {service_type}
-              </div>
-            )}
-            {transport_type === undefined ? null : (
-              <div className="uk-margin-small">
-                <b>Transport type:</b> {transport_type}
-              </div>
-            )}
-            {types === undefined || types.length < 1 ? null : (
-              <div className="uk-margin-small">
-                <b>Types:</b> {types}
-              </div>
-            )}
-            {food_types === undefined || food_types.length < 1 ? null : (
-              <div className="uk-margin-small">
-                <b>Food types:</b> {food_types}
-              </div>
-            )}
             {interests === undefined || interests.length < 1 ? null : (
               <div className="uk-margin-small">
                 <b>Interests:</b> {interests}
               </div>
             )}
+            {number_of_guests === undefined ? null : (
+              <div className="uk-margin-small">
+                <b>Number of Guests:</b> {number_of_guests}
+              </div>
+            )}
           </div>
-
-          {/* <DetailModal
-            model={model}
-            user={user}
-            item={item}
-            itemId={itemId}
-            setItemId={setItemId}
-          /> */}
 
         </div>
       </div>
@@ -146,4 +106,4 @@ class Card extends Component {
   }
 }
 
-export default Card;
+export default ReservationCard;

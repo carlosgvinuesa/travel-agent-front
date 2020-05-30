@@ -66,7 +66,7 @@ class ReservationForm extends Component {
         data = { ...data, "status": status, "schedule": schedule, "cost": cost };
         createReservation(data)
             .then((res) => {
-                history.push("/");
+                history.push("/collection/reservations");
             })
             .catch((res) => console.error(res.response));
     };
@@ -109,7 +109,7 @@ class ReservationForm extends Component {
                 </form>
                 <button
                     type="submit"
-                    className="uk-width-1-3 uk-button uk-button-primary uk-align-center"
+                    className="uk-width-1-3 button uk-align-center"
                     onClick={handleSubmit}>
                     SAVE
                 </button>

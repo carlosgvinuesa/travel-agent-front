@@ -71,8 +71,8 @@ class EditModal extends Component {
                     </div>
 
                     <div className="uk-modal-footer uk-text-right">
-                        <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                        <button className="uk-button uk-button-primary" type="button" onClick={() => this.handleSubmit()}>Save</button>
+                        <button className="button-nb uk-modal-close" type="button">CANCEL</button>
+                        <button className="button" type="button" onClick={() => this.handleSubmit()}>SAVE</button>
                     </div>
 
                 </div>
