@@ -66,7 +66,7 @@ class ReservationForm extends Component {
         data = { ...data, "status": status, "schedule": schedule, "cost": cost };
         createReservation(data)
             .then((res) => {
-                history.push("/");
+                history.push("/collection/reservations");
             })
             .catch((res) => console.error(res.response));
     };

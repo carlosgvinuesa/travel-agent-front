@@ -4,7 +4,7 @@ import Particles from "react-particles-js";
 class ParticleBackground extends Component {
     render () {
         return (
-            <Particles height="1500"
+            <Particles height="2000"
           params={{
             absorbers: [],
             background: {

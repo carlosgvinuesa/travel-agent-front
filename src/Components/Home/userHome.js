@@ -6,7 +6,7 @@ const userHome = () => {
             <div className="home">
                 <img src="/images/logo-white.png" />
             </div>
-            <div className="uk-child-width-1-2@m uk-margin uk-margin" uk-grid="true">
+            <div className="uk-child-width-1-2@m uk-margin uk-margin uk-grid-match" uk-grid="true">
                 <div>
                     <div className="uk-card uk-card-default">
                         <div className="uk-card-body">

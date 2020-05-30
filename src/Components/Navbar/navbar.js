@@ -31,7 +31,7 @@ const Navbar = ({ user, logout }) => {
                   </div>
                 </li>
                 <li className="uk-active">
-                  <Link to="collection/reservations">Reservations</Link>
+                  <Link to="/collection/reservations">Reservations</Link>
                 </li>
                 <li className="uk-active"><a className="text" onClick={logout}>Logout</a></li>
                 <li className="img-navbar"><img src="/images/logo-img-color.png" /></li>
