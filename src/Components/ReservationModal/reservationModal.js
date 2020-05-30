@@ -28,15 +28,29 @@ const deleteServices = {
 class ReservationModal extends Component {
   static contextType = AppContext;
 
-    deleteItem = () => {
+  deleteItem = () => {
     const { model, itemId, setItemId } = this.props;
     deleteServices[model](itemId);
     setItemId({});
   };
 
   render() {
-    const { model, user, item, itemId,handleChange,handleImagesChange } = this.props;
-    console.log("este es el item", item.schedule)
+    const {
+      model,
+      user,
+      item,
+      itemId,
+      handleChange,
+      handleImagesChange,
+      status,
+      cities,
+      price,
+      interests,
+      number_of_guests,
+      initial_date,
+      final_date,
+    } = this.props;
+    
     return (
       <div id="reservationModal" className="uk-modal-full" uk-modal="true">
         <div className="uk-modal-dialog">
@@ -45,19 +59,59 @@ class ReservationModal extends Component {
             type="button"
             uk-close="true"
           ></button>
-          
+
           <div className="uk-modal-header">
             <h2 className="uk-modal-title">
-              {item !== undefined ? item.name : ""}
-              {item !== undefined ? item.last_name : ""}
+              Reservation - {item !== undefined ? item.name : ""}
             </h2>
           </div>
+          
           <div className="uk-modal-body" uk-overflow-auto="true">
+          <div className="uk-text-center uk-flex uk-flex-around uk-margin-medium-bottom">
+            {item.status === undefined ? null : (
+              <div className="uk-margin-small-top uk-margin-left">
+              <b>Reservation status:</b> {item.status}
+              </div>
+            )}
+            {item.initial_date === undefined ? null : (
+              <div className="uk-margin-small uk-margin-left">
+                <b>From:</b> {dayjs(item.initial_date).format("DD/MMM/YYYY")}{" "}
+                <b>To:</b> {dayjs(item.final_date).format("DD/MMM/YYYY")}
+              </div>
+            )}
+            {item.cost === undefined ? null : (
+              <div className="uk-margin-small uk-margin-left">
+              <b>Cost:</b> {item.cost}
+              </div>
+            )}
+            {item.cities === undefined ? null : (
+              <div className="uk-margin-small uk-margin-left">
+                <b>City:</b> {item.cities}
+              </div>
+            )}
+            {item.price === undefined || item.price < 1 ? null : (
+              <div className="uk-margin-small uk-margin-left">
+                <b>Price:</b> {item.price}
+              </div>
+            )}
+            {item.interests === undefined || item.interests.length < 1 ? null : (
+              <div className="uk-margin-small uk-margin-left">
+                <b>Interests:</b> {item.interests}
+              </div>
+            )}
+            {item.number_of_guests === undefined ? null : (
+              <div className="uk-margin-small uk-margin-left">
+                <b>Number of Guests:</b> {item.number_of_guests}
+              </div>
+            )}
+          </div>
             <div>
-            {item.schedule !== undefined ? item.schedule.map((userItem, index) => (
-              <Day  key={index} {...userItem} index={index}/>
-            )): ""}
-              
+              {item.schedule !== undefined
+                ? item.schedule.map((userItem, index) => (
+                    <Day key={index} {...userItem} index={index} />
+                  ))
+                : ""}
+
               {/* <EditModal
                 model={model}
                 title={model.slice(0, -1)}

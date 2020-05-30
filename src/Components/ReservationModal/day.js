@@ -105,13 +105,13 @@ class Day extends Component {
                 <h3>{transportsBase.find((x) => x.name === transport).name}</h3> 
               </div>
               <div className="uk-margin-small">
-                <b>City:</b> {transportsBase.find((x) => x.name === transport).city}
+                <b>Vehicle Type:</b> {transportsBase.find((x) => x.name === transport).vehicle_type}
               </div>
               <div className="uk-margin-small">
                 <b>Price:</b> {transportsBase.find((x) => x.name === transport).price}
               </div>
               <div className="uk-margin-small">
-                <b>Interests:</b> {transportsBase.find((x) => x.name === transport).interests}
+                <b>Service Type:</b> {transportsBase.find((x) => x.name === transport).service_type}
               </div>
             </div>
           </div>

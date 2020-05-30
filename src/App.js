@@ -66,10 +66,11 @@ class App extends Component {
     const withNameFilter = denormalizeData(base).filter((x) =>
       x.name.toLowerCase().includes(e.target.value.toLowerCase())
     );
-    const withCityFilter = denormalizeData(base).filter((x) =>
-      x.city.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    withFilter.push(...withNameFilter, ...withCityFilter);
+    // const withCityFilter = denormalizeData(base).filter((x) =>
+    //   x.city.toLowerCase().includes(e.target.value.toLowerCase())
+    // );
+    withFilter.push(...withNameFilter);
+    // withFilter.push(...withNameFilter, ...withCityFilter);
     const normWithFilter = normalizeData(withFilter);
     setFiltered(normWithFilter);
   };

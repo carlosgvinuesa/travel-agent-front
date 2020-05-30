@@ -41,44 +41,27 @@ class ReservationCard extends Component {
 
   render() {
     const {
-      images = [],
       name,
-      last_name,
-      email,
-      role,
-      model,
-      city,
-      types,
-      food_types,
       interests,
       price,
-      service_type,
-      transport_type,
-      client,
       schedule,
       initial_date,
       final_date,
       status,
-      user,
-      detail,
-      itemId,
-      item,
-      setItemId,
       number_of_guests,
-      demo = false,
+      cities,
     } = this.props;
 
     const { handleClick } = this;
     const experiencesBase = denormalizeData(this.context.state.experiencesBase);
-    console.log(schedule[0].experience)
-    const expImages = experiencesBase.find(x => x.name === schedule[0].experience).images
+    
     return (
       <div
         className="uk-margin-small-left uk-margin-small-top uk-padding-remove uk-card uk-card-small uk-card-hover"
         uk-grid="true"
       >
         <div className="uk-padding-remove uk-cover-container uk-card-media-left">
-          <Slider images={expImages} />
+          <Slider images={schedule !== undefined ? experiencesBase.find(x => x.name === schedule[0].experience).images : ""} />
         </div>
         <div
           className="uk-padding-remove uk-margin-small uk-card-body uk-text-top"
@@ -92,12 +75,12 @@ class ReservationCard extends Component {
           <div>
             {status === undefined ? null : (
               <div className="uk-margin-small">
-                <b>From:</b> {initial_date} <b>To:</b> {final_date}
+                <b>From:</b> {dayjs(initial_date).format('DD/MMM/YYYY')} <b>To:</b> {dayjs(final_date).format('DD/MMM/YYYY')}
               </div>
             )}
-            {city === undefined ? null : (
+            {cities === undefined ? null : (
               <div className="uk-margin-small">
-                <b>City:</b> {city}
+                <b>City:</b> {cities}
               </div>
             )}
             {price === undefined || price < 1 ? null : (
@@ -112,7 +95,7 @@ class ReservationCard extends Component {
             )}
             {number_of_guests === undefined ? null : (
               <div className="uk-margin-small">
-                <b>Interests:</b> {number_of_guests}
+                <b>Number of Guests:</b> {number_of_guests}
               </div>
             )}
           </div>
