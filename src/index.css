@@ -12,12 +12,65 @@ code {
     monospace;
 }
 
-.form-border {
-  border: solid 1px rgb(219, 217, 217);
-  padding: 5px;
+.text {
+  color: white;
 }
 
-.form-new {
+.button {
+  background-color: rgb(92, 143, 139);
+  color: white;
+  height: 40px;
+  width: 100px;
+  border: 1px solid rgb(160, 158, 158);
+  text-transform: uppercase;
+}
+
+.button-nb {
+  background-color: white;
+  color: rgb(92, 143, 139);
+  height: 40px;
+  width: 100px;
+  border: 1px solid rgb(92, 143, 139);
+  text-transform: uppercase;
+}
+
+.button-new {
+  background-color: rgb(92, 143, 139);
+  color: white;
+  height: 40px;
+  width: 180px;
+  border: 1px solid rgb(160, 158, 158);
+  text-transform: uppercase; 
+}
+
+.title {
+  color: blue;
+  margin-bottom: 300px;
+
+}
+
+.img-navbar {
+  width: 60px;
   display: flex;
-  margin: 50px;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.logo-navbar {
+  width: 350px;
+}
+
+.title-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home {
+  background-color: rgb(92, 143, 139);
+}
+
+.auth-button {
+  background-color: rgb(91, 146, 142);
 }

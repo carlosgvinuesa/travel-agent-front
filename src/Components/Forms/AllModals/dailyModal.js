@@ -46,8 +46,8 @@ class DailyModal extends Component {
                             </div>
                         </div>
                         <div className="uk-modal-footer uk-text-right">
-                            <button className="uk-button uk-button-default" type="button" onClick={() => this.handlePrice()}>Update price</button>
-                            <button className="uk-button uk-button-primary" type="button" onClick={() => handleDaily(price)}>Save</button>
+                            <button className="button-nb" type="button" onClick={() => this.handlePrice()}>Update price</button>
+                            <button className="button" type="button" onClick={() => handleDaily(price)}>Save</button>
                         </div>
 
                     </div>

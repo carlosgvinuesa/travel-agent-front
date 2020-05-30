@@ -35,7 +35,7 @@ class CardDetail extends Component {
       <div className="uk-card " uk-grid="true">
 
         <div>
-          <div className="uk-margin-small uk-card-body uk-text-top">
+          <div className="uk-margin-small uk-padding-remove uk-card-body uk-text-top">
             <div>
               {demo ? (
                 <h1>{name}</h1>
