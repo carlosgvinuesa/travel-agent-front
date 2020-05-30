@@ -66,16 +66,15 @@ class DetailModal extends Component {
           <div className="uk-modal-footer uk-text-right">
             <div>
               <button
-                className="uk-button uk-button-default uk-button-small uk-width-small"
+                className="button-nb uk-width-small"
                 uk-toggle={`target: #${model}-edit`}
-                //onClick={() => this.setState({ isEdit: true })}
                 type="button"
               >
                 EDIT
               </button>
 
               <button
-                className="uk-button uk-button-danger uk-button-small uk-width-small"
+                className="button uk-button-small uk-width-small"
                 uk-toggle="target: #delWarning"
               >
                 DELETE
@@ -89,13 +88,13 @@ class DetailModal extends Component {
                   </p>
                   <p className="uk-text-right">
                     <button
-                      className="uk-button uk-button-default uk-modal-close"
+                      className="button-nb uk-modal-close"
                       type="button"
                     >
                       CANCEL
                     </button>
                     <button
-                      className="uk-button uk-button-danger uk-modal-close"
+                      className="button uk-modal-close"
                       type="button"
                       onClick={this.deleteItem}
                     >

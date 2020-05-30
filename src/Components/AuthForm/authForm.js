@@ -18,15 +18,12 @@ class AuthForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log(this.props);
-
-    const isLogin = this.props.location.pathname === "/login";
+    const isLogin = this.props.location.pathname === "/";
     const { setUser } = this.context;
     const { user: credentials } = this.state;
     const action = isLogin ? login : signup;
     const { history } = this.props;
-    const nextRoute = isLogin ? "/" : "/login";
+    const nextRoute = isLogin ? "/home" : "/";
     action(credentials)
       .then((res) => {
         if (isLogin) {
@@ -43,12 +40,14 @@ class AuthForm extends Component {
   };
 
   render() {
-    const isLogin = this.props.location.pathname === "/login";
+    const isLogin = this.props.location.pathname === "/";
+    console.log("Auth props:", this.props);
+
     return (
       <section className="uk-section">
       <div className="uk-container uk-flex uk-flex-center">
           <div className="uk-width-1-4">
-              <h3>{isLogin ? "Login" : "Signup"}</h3>
+              <h3 className="text">{isLogin ? "Login" : "Signup"}</h3>
               <form
               onSubmit={this.handleSubmit} 
               className="uk-width-1-1 uk-form-stacked uk-flex uk-flex-center uk-flex-column"
@@ -56,9 +55,6 @@ class AuthForm extends Component {
                   {!isLogin ? (
                       <div>
                           <div className="uk-margin">
-                              <label className="uk-form-label" htmlFor="name">
-                                  Name:
-                              </label>
                               <div className="uk-inline">
                                   <span
                                       className="uk-form-icon uk-form-icon-flip"
@@ -66,6 +62,7 @@ class AuthForm extends Component {
                                   ></span>
                                   <input
                                       onChange={this.handleChange}
+                                      placeholder="Name"
                                       id="name"
                                       name="name"
                                       className="uk-input"
@@ -75,9 +72,6 @@ class AuthForm extends Component {
                               </div>
                           </div>
                           <div>
-                              <label className="uk-form-label" htmlFor="last_name">
-                                  Last name:
-                              </label>
                               <div className="uk-inline">
                                   <span
                                       className="uk-form-icon uk-form-icon-flip"
@@ -85,6 +79,7 @@ class AuthForm extends Component {
                                   ></span>
                                   <input
                                       onChange={this.handleChange}
+                                      placeholder="Last name"
                                       id="last_name"
                                       name="last_name"
                                       className="uk-input"
@@ -96,9 +91,6 @@ class AuthForm extends Component {
                       </div>                
                   ) : null}
                   <div className="uk-margin">
-                      <label className="uk-form-label" htmlFor="email">
-                          Email:
-                      </label>
                       <div className="uk-inline">
                           <span
                               className="uk-form-icon uk-form-icon-flip"
@@ -106,6 +98,7 @@ class AuthForm extends Component {
                           ></span>
                           <input
                               onChange={this.handleChange}
+                              placeholder={"Email"}
                               id="email"
                               name="email"
                               className="uk-input"
@@ -114,9 +107,6 @@ class AuthForm extends Component {
                           />
                       </div>
                       <div className="uk-margin">
-                          <label className="uk-form-label" htmlFor="password">
-                              Password:
-                          </label>
                           <div className="uk-inline">
                               <span
                                   className="uk-form-icon uk-form-icon-flip"
@@ -124,6 +114,7 @@ class AuthForm extends Component {
                               ></span>
                               <input
                                   onChange={this.handleChange}
+                                  placeholder="Password"
                                   id="password"
                                   name="password"
                                   className="uk-input"
@@ -134,14 +125,14 @@ class AuthForm extends Component {
                       </div>
                   </div>
                   {isLogin ? (
-                      <div className="uk-text-meta">
+                      <div className="text">
                           Don't have an account?{" "}
                           <Link className="uk-text-primary" to="/signup">
                               Sign up
                           </Link>
                       </div>
                   ) : null}
-                  <button className="uk-button uk-button-primary">
+                  <button className="uk-button auth-button">
                       {isLogin ? "Login" : "Signup"}
                   </button>
               </form>
@@ -149,7 +140,7 @@ class AuthForm extends Component {
       </div>
   </section>   
     );
-  }
+  } 
 }
 
 AuthForm.contextType = AppContext;
