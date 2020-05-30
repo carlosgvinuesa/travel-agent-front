@@ -8,8 +8,10 @@ const Navbar = ({ user, logout }) => {
         <div className="uk-navbar-left">
           <ul className="uk-navbar-nav">
             {user._id ? (
+
               <li className="uk-active logo-navbar"><Link to="/home"><img src="/images/logo-color.png"/></Link></li>
             ) : null}
+
           </ul>
         </div>
         <div className="uk-navbar-right">
@@ -29,7 +31,7 @@ const Navbar = ({ user, logout }) => {
                   </div>
                 </li>
                 <li className="uk-active">
-                  <Link to="/reservations">Reservations</Link>
+                  <Link to="collection/reservations">Reservations</Link>
                 </li>
                 <li className="uk-active"><a className="text" onClick={logout}>Logout</a></li>
                 <li className="img-navbar"><img src="/images/logo-img-color.png" /></li>

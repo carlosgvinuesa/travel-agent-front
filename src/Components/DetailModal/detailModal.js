@@ -33,8 +33,8 @@ class DetailModal extends Component {
   };
 
   render() {
-    const { model, user, item, itemId,handleChange,handleImagesChange } = this.props;
     
+    const { model, user, item, itemId,handleChange,handleImagesChange } = this.props;
     return (
       <div id="cardDetailModal" uk-modal="true">
         <div className="uk-modal-dialog uk-width-1-2">
