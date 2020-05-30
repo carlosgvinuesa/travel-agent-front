@@ -64,7 +64,7 @@ class Collection extends Component {
     const { history } = this.props;
 
     if (!user._id) {
-      history.push("/login");
+      history.push("/");
     } else {
       getServices[model]().then((res) => {
         const { result } = res.data;
@@ -192,16 +192,18 @@ class Collection extends Component {
     const iniFilter = filtered === undefined ? base : filtered;
     return (
       <div>
-        <h1 className="uk-margin-small-top">
-          {this.props.match.params.model.toUpperCase()}
-        </h1>
+
+        <h1 className="uk-margin-top uk-text-muted">{this.props.match.params.model.toUpperCase()}</h1>
+
 
         <Searchbar />
 
         <div className="uk-flex uk-flex-row-reverse uk-margin-xlarge-right">
+
+
           {model !== "reservations" ? (
             <button
-              className="uk-button uk-button-default"
+              className="button-new"
               uk-toggle={`target: #${model}-new`}
               type="button"
             >
@@ -215,6 +217,7 @@ class Collection extends Component {
               New Reservation
             </Link>
           )}
+
         </div>
 
         <CreateModal model={model} title={model.slice(0, -1)} />

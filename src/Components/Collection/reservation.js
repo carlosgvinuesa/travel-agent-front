@@ -10,7 +10,7 @@ class Reservation extends Component {
     render() {
         return (
             <div>
-                <h1>RESERVATIONS</h1>
+                <h1 className="uk-margin-top uk-text-muted">RESERVATIONS</h1>
                 <Link className="uk-button uk-button-default" to="/reservations/new">New Reservation</Link>
             </div>
         )
