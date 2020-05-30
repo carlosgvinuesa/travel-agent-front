@@ -36,19 +36,14 @@ class ItemContent extends Component {
             <div>
               <div className="uk-flex uk-flex-wrap uk-flex-wrap-around">
                 {name === undefined ? null : (
-                  <div className="uk-margin-left uk-margin">
+                  <h1 className="uk-margin-left uk-margin">
                     <b>Name:</b> {name}
-                  </div>
+                  </h1>
                 )}
                 {last_name === undefined ? null : (
-                  <div className="uk-margin-left uk-margin">
+                  <h1 className="uk-margin-left uk-margin">
                     <b>Last Name:</b> {last_name}
-                  </div>
-                )}
-                {description === undefined ? null : (
-                  <div className="uk-margin-left uk-margin">
-                    <b>Description:</b> {description}
-                  </div>
+                  </h1>
                 )}
                 {email === undefined ? null : (
                   <div className="uk-margin-left uk-margin">
@@ -100,11 +95,6 @@ class ItemContent extends Component {
                     <b>Address:</b> {address}
                   </div>
                 )}
-                {comments === undefined ? null : (
-                  <div className="uk-margin-left uk-margin-small">
-                    <b>Comments:</b> {comments}
-                  </div>
-                )}
                 {phone_numbers === undefined ||
                 phone_numbers.length < 1 ? null : (
                   <div className="uk-margin-left uk-margin-small">
@@ -116,6 +106,17 @@ class ItemContent extends Component {
                     <b>Contacts:</b> {contacts}
                   </div>
                 )}
+                {comments === undefined ? null : (
+                  <div className="uk-margin-left uk-margin-small">
+                    <b>Comments:</b> {comments}
+                  </div>
+                )}
+                {description === undefined ? null : (
+                  <div className="uk-margin-left uk-margin">
+                    <b>Description:</b> {description}
+                  </div>
+                )}
+                
               </div>
             </div>
           </div>

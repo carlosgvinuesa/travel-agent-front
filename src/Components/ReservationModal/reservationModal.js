@@ -7,11 +7,12 @@ import { deleteTransport } from "../../services/transportServices";
 import { deleteReservation } from "../../services/reservationServices";
 import EditModal from "../Forms/AllModals/editModal";
 import React, { Component } from "react";
+import AppContext from "../../AppContext";
 import Slider from "../Common/Slider/slider";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es";
-import CardDetail from "../CardDetail/cardDetail";
+import Day from "./day";
 dayjs.extend(relativeTime);
 
 const deleteServices = {
@@ -24,7 +25,8 @@ const deleteServices = {
   reservations: deleteReservation,
 };
 
-class DetailModal extends Component {
+class ReservationModal extends Component {
+  static contextType = AppContext;
 
     deleteItem = () => {
     const { model, itemId, setItemId } = this.props;
@@ -33,16 +35,17 @@ class DetailModal extends Component {
   };
 
   render() {
-    
     const { model, user, item, itemId,handleChange,handleImagesChange } = this.props;
+    console.log("este es el item", item.schedule)
     return (
-      <div id="cardDetailModal" uk-modal="true">
-        <div className="uk-modal-dialog uk-width-1-2">
+      <div id="reservationModal" className="uk-modal-full" uk-modal="true">
+        <div className="uk-modal-dialog">
           <button
-            className="uk-modal-close-default"
+            className="uk-modal-close-full uk-close-large"
             type="button"
             uk-close="true"
           ></button>
+          
           <div className="uk-modal-header">
             <h2 className="uk-modal-title">
               {item !== undefined ? item.name : ""}
@@ -51,8 +54,11 @@ class DetailModal extends Component {
           </div>
           <div className="uk-modal-body" uk-overflow-auto="true">
             <div>
-              <CardDetail user={user} model={model} {...item} item={itemId} />
-              <EditModal
+            {item.schedule !== undefined ? item.schedule.map((userItem, index) => (
+              <Day  key={index} {...userItem} index={index}/>
+            )): ""}
+              
+              {/* <EditModal
                 model={model}
                 title={model.slice(0, -1)}
                 id={itemId}
@@ -60,7 +66,7 @@ class DetailModal extends Component {
                 data={item}
                 handleImagesChange={handleImagesChange}
                 handleChange ={handleChange}
-              />
+              /> */}
             </div>
           </div>
           <div className="uk-modal-footer uk-text-right">
@@ -112,4 +118,4 @@ class DetailModal extends Component {
   }
 }
 
-export default DetailModal;
+export default ReservationModal;

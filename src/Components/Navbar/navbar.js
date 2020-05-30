@@ -28,25 +28,10 @@ const Navbar = ({ user, logout }) => {
             ) : null}
             {user._id ? (
               <li className="uk-active">
-                <Link to="/reservations">Reservations</Link>
+                <Link to="/collection/reservations">Reservations</Link>
               </li>
             ) : null}
-            {/* <li className="uk-active">
-              <Link to="/collection/reservations">Data Bases</Link>
-              <div className="uk-navbar-dropdown">
-                  <ul className="uk-nav uk-navbar-dropdown-nav">
-                    <li><Link to='/collection/clients'>Clients</Link></li>
-                    <li><Link to='/collection/hotels'>Hotels</Link></li>
-                    <li><Link to='/collection/restaurants'>Restaurants</Link></li>
-                    <li><Link to='/collection/experiences'>Experiences</Link></li>
-                    <li><Link to='/collection/transports'>Transport</Link></li>
-                    <li><Link to='/collection/userbase'>Users</Link></li>
-                  </ul>
-                </div>
-            </li>
-            <li className="uk-active">
-              <Link to="/collection/reservations">Reservations</Link>
-            </li> */}
+           
           </ul>
         </div>
         <div className="uk-navbar-right">
